@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
 
-@Mod(modid=AlchemicalExpansion.MODID)
+@Mod(modid = AlchemicalExpansion.MODID)
 public class AlchemicalExpansion {
 
     public static final String MODID = "alchemicalexpansion";
@@ -29,7 +29,6 @@ public class AlchemicalExpansion {
     public static void postInit(FMLPostInitializationEvent event) {
         logger.debug("AlchemicalExpansion says hello from post-init");
     }
-
 
 
 }
