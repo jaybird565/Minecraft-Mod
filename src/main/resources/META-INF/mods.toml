@@ -9,7 +9,7 @@
     showAsResourcePack=false
 
     [[mods]]
-      modId="AlchemicalExpansion"
+      modId="alchemicalexpansion"
       version="0.0"
       displayName="Alchemical Expansion"
       updateJSONURL="minecraftforge.net/versions.json"
