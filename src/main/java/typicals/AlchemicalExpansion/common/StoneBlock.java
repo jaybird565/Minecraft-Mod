@@ -8,6 +8,7 @@ import net.minecraft.item.ItemBlock;
 import typicals.AlchemicalExpansion.AlchemicalExpansion;
 
 public class StoneBlock extends ModBlock {
+
     public static final String name = "mod_stone_block";
 
     public static final Material material = Material.ROCK;

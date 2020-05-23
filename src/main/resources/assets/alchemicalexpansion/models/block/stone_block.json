@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "alchemicalexpansion:blocks/stone_block"
+  }
+}
