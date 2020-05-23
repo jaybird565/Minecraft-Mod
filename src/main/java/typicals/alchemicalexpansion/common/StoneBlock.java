@@ -17,7 +17,7 @@ public class StoneBlock extends ModBlock {
     }
 
     private void init() {
-        super.setBlockName(name);
+        this.setBlockName(name);
         this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         this.setSoundType(SoundType.STONE);
     }

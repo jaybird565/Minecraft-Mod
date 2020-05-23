@@ -2,11 +2,12 @@ package typicals.alchemicalexpansion.common;
 
 
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 
+@ObjectHolder(AlchemicalExpansion.MODID)
 public class ModBlocks {
 
-    @ObjectHolder(StoneBlock.name)
-    public static ModBlock STONE_BLOCK = null;
+    public static final StoneBlock STONE_BLOCK = null;
 
 
 
