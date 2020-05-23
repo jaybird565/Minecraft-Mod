@@ -1,9 +1,10 @@
-package typicals.AlchemicalExpansion.common;
+package typicals.alchemicalexpansion.common;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 
 public abstract class ModBlock extends Block {
 
@@ -15,6 +16,10 @@ public abstract class ModBlock extends Block {
         super(materialIn, MapColorIn);
     }
 
-    public abstract Item itemBlock();
+    protected void setBlockName(String name) {
+        this.setRegistryName(AlchemicalExpansion.MODID, name);
+        this.setUnlocalizedName(AlchemicalExpansion.MODID + "." + name);
+    }
 
+    public abstract Item itemBlock();
 }

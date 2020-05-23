@@ -1,33 +1,42 @@
-package typicals.AlchemicalExpansion;
+package typicals.alchemicalexpansion;
 
+import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
+import typicals.alchemicalexpansion.proxy.CommonProxy;
 
 
 @Mod(modid = AlchemicalExpansion.MODID)
 public class AlchemicalExpansion {
 
     public static final String MODID = "alchemicalexpansion";
+
     public static Logger logger;
+
+    @Instance
+    public static AlchemicalExpansion alchemicalExpansion;
+
+    @SidedProxy(clientSide = "typicals.alchemicalexpansion.proxy.ClientProxy", serverSide = "typicals.alchemicalexpansion.proxy.ServerProxy")
+    public static CommonProxy proxy;
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
-        logger.debug("AlchemicalExpansion says hello from pre-init");
+        proxy.preInit(event);
     }
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
-        logger.debug("AlchemicalExpansion says hello from init");
-
+        proxy.init(event);
     }
 
     @Mod.EventHandler
     public static void postInit(FMLPostInitializationEvent event) {
-        logger.debug("AlchemicalExpansion says hello from post-init");
+        proxy.postInit(event);
     }
 
 
