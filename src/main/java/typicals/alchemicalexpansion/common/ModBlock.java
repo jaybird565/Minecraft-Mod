@@ -8,6 +8,8 @@ import typicals.alchemicalexpansion.AlchemicalExpansion;
 
 public abstract class ModBlock extends Block {
 
+    protected boolean enabled;
+
     protected ModBlock(Material materialIn) {
         super(materialIn);
     }
@@ -22,4 +24,9 @@ public abstract class ModBlock extends Block {
     }
 
     public abstract Item itemBlock();
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
 }

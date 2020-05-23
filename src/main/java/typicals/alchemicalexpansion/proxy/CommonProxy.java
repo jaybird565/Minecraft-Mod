@@ -11,7 +11,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.common.ModBlocks;
-import typicals.alchemicalexpansion.common.StoneBlock;
+import typicals.alchemicalexpansion.common.ModItems;
+import typicals.alchemicalexpansion.common.PacketHandler;
 
 @EventBusSubscriber
 public class CommonProxy {
@@ -20,6 +21,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         AlchemicalExpansion.logger.debug("alchemicalexpansion says hello from pre-init");
+        PacketHandler.registerMessages(AlchemicalExpansion.MODID);
     }
 
     public void init(FMLInitializationEvent event) {
@@ -32,14 +34,13 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void onBlockRegistry(RegistryEvent.Register<Block> event) {
-        final Block[] blocks = {new StoneBlock()};
-        event.getRegistry().registerAll(blocks);
+        ModBlocks.registerBlocks(event.getRegistry());
     }
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
-        final Item[] itemBlocks = {ModBlocks.STONE_BLOCK.itemBlock()};
-        event.getRegistry().registerAll(itemBlocks);
+        ModBlocks.registerItemBlocks(event.getRegistry());
+        ModItems.registerItems(event.getRegistry());
     }
 
 }
