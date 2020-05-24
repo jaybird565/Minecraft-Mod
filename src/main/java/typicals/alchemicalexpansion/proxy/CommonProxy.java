@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlocks;
-import typicals.alchemicalexpansion.common.*;
 import typicals.alchemicalexpansion.handler.GuiHandler;
 import typicals.alchemicalexpansion.item.ModItems;
 
