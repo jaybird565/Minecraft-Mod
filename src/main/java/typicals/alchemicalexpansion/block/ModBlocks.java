@@ -6,8 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
-import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
-import typicals.alchemicalexpansion.util.RegistryUtil;
 
 @ObjectHolder(AlchemicalExpansion.MODID)
 public class ModBlocks {
