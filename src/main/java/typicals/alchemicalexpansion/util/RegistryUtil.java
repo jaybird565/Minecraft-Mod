@@ -1,14 +1,17 @@
 package typicals.alchemicalexpansion.util;
 
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
+import typicals.alchemicalexpansion.block.ModBlock;
 
 public class RegistryUtil {
 
-    public static void registerTileEntity(Class<TileEntity> clazz, String name) {
-        GameRegistry.registerTileEntity(clazz, new ResourceLocation(AlchemicalExpansion.MODID, name));
+    public static ResourceLocation resourceLocation(ModBlock block) {
+        return resourceLocation(block.getUnlocalizedName());
+    }
+
+    public static ResourceLocation resourceLocation(String name) {
+        return new ResourceLocation(AlchemicalExpansion.MODID, name);
     }
 
 }

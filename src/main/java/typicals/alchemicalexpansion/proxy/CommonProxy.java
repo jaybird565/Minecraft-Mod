@@ -2,8 +2,10 @@ package typicals.alchemicalexpansion.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,6 +17,7 @@ import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlocks;
 import typicals.alchemicalexpansion.handler.GuiHandler;
 import typicals.alchemicalexpansion.item.ModItems;
+import typicals.alchemicalexpansion.tileentity.TileEntities;
 
 @EventBusSubscriber
 public class CommonProxy {
@@ -36,12 +39,14 @@ public class CommonProxy {
     }
 
     @SubscribeEvent
-    public static void onBlockRegistry(RegistryEvent.Register<Block> event) {
+    public static void onBlockRegistry(Register<Block> event) {
         ModBlocks.registerBlocks(event.getRegistry());
+        TileEntities.registerTileEntities();
     }
 
+
     @SubscribeEvent
-    public static void onItemRegistry(RegistryEvent.Register<Item> event) {
+    public static void onItemRegistry(Register<Item> event) {
         IForgeRegistry<Item> registry = event.getRegistry();
         ModBlocks.registerItemBlocks(registry);
         ModItems.registerItems(registry);
