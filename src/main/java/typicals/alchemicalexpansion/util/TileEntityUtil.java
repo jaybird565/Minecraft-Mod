@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common.util;
+package typicals.alchemicalexpansion.util;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

@@ -1,9 +1,9 @@
-package typicals.alchemicalexpansion.client.gui;
+package typicals.alchemicalexpansion.gui.guicontainer;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
-import typicals.alchemicalexpansion.common.container.PillFurnace;
+import typicals.alchemicalexpansion.gui.container.PillFurnace;
 
 public class PillFurnaceGui extends GuiContainer {
 

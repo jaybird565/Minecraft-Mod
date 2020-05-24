@@ -1,12 +1,12 @@
-package typicals.alchemicalexpansion.common;
+package typicals.alchemicalexpansion.handler;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import typicals.alchemicalexpansion.common.blocks.testing.PillFurnaceBlock;
-import typicals.alchemicalexpansion.common.container.PillFurnace;
-import typicals.alchemicalexpansion.client.gui.PillFurnaceGui;
-import typicals.alchemicalexpansion.common.util.TileEntityUtil;
+import typicals.alchemicalexpansion.block.PillFurnaceBlock;
+import typicals.alchemicalexpansion.gui.container.PillFurnace;
+import typicals.alchemicalexpansion.gui.guicontainer.PillFurnaceGui;
+import typicals.alchemicalexpansion.util.TileEntityUtil;
 
 public class GuiHandler implements IGuiHandler {
 

@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common.blocks.testing;
+package typicals.alchemicalexpansion.block;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -14,9 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
-import typicals.alchemicalexpansion.common.ModBlock;
-import typicals.alchemicalexpansion.common.ModBlocks;
-import typicals.alchemicalexpansion.common.tileentities.PillFurnaceTileEntity;
+import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 
 public class PillFurnaceBlock extends ModBlock implements ITileEntityProvider {
 
@@ -45,6 +43,11 @@ public class PillFurnaceBlock extends ModBlock implements ITileEntityProvider {
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new PillFurnaceTileEntity();
+    }
+
+    @Override
+    public boolean hasTileEntity() {
+        return true;
     }
 
     @Override

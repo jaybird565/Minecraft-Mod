@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common;
+package typicals.alchemicalexpansion.config;
 
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;

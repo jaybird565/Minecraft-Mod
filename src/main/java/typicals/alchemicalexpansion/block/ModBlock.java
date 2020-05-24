@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common;
+package typicals.alchemicalexpansion.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;

@@ -12,10 +12,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
-import typicals.alchemicalexpansion.common.GuiHandler;
-import typicals.alchemicalexpansion.common.ModBlocks;
-import typicals.alchemicalexpansion.common.ModItems;
-import typicals.alchemicalexpansion.common.PacketHandler;
+import typicals.alchemicalexpansion.block.ModBlocks;
+import typicals.alchemicalexpansion.common.*;
+import typicals.alchemicalexpansion.handler.GuiHandler;
+import typicals.alchemicalexpansion.item.ModItems;
 
 @EventBusSubscriber
 public class CommonProxy {

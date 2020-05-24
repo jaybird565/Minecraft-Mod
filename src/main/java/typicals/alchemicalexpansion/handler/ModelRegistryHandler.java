@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.client;
+package typicals.alchemicalexpansion.handler;
 
 
 import net.minecraft.block.Block;
@@ -9,7 +9,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import typicals.alchemicalexpansion.common.ModBlocks;
+import typicals.alchemicalexpansion.block.ModBlocks;
 
 @EventBusSubscriber(Side.CLIENT)
 public class ModelRegistryHandler {

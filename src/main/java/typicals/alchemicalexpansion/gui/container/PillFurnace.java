@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common.container;
+package typicals.alchemicalexpansion.gui.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import typicals.alchemicalexpansion.common.tileentities.PillFurnaceTileEntity;
+import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 
 public class PillFurnace extends Container {
 

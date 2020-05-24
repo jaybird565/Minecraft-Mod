@@ -1,22 +1,35 @@
-package typicals.alchemicalexpansion.common.tileentities;
+package typicals.alchemicalexpansion.tileentity;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import typicals.alchemicalexpansion.util.BlockUtil;
 
-public class InventoryTileEntity extends TileEntity {
-    private ItemStackHandler itemStackHandler = new ItemStackHandler(11) {
+
+public abstract class ItemHandlerTileEntity extends TileEntity {
+
+    @CapabilityInject(IItemHandler.class)
+    public static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
+
+    public abstract int size();
+
+    public abstract Block[] validBlocks();
+
+    protected ItemStackHandler itemStackHandler = new ItemStackHandler(size()) {
         @Override
         protected void onContentsChanged(int slot) {
             //mark the InventoryTileEntity instance dirty to keep contents persistent
-            InventoryTileEntity.this.markDirty();
+            ItemHandlerTileEntity.this.markDirty();
         }
     };
 
+    //set items of ItemStackHandler to the items in the passed NBT
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
@@ -24,20 +37,21 @@ public class InventoryTileEntity extends TileEntity {
             itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
         }
     }
+
+    //get the items in the ItemStackHandler in NBT form
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) { super.writeToNBT(compound);
         compound.setTag("items", itemStackHandler.serializeNBT());
         return compound;
     }
+
     public boolean canInteractWith(EntityPlayer playerIn) {
-        // If we are too far away from this tile entity you cannot use it
-        return !isInvalid() && playerIn.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
+        return !isInvalid() && BlockUtil.canInteractWith(playerIn, this.getPos());
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (capability == ITEM_HANDLER_CAPABILITY) {
             return true;
         }
         return super.hasCapability(capability, facing);
@@ -45,9 +59,10 @@ public class InventoryTileEntity extends TileEntity {
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
+        if (capability == ITEM_HANDLER_CAPABILITY) {
+            return ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
         }
         return super.getCapability(capability, facing);
     }
+
 }

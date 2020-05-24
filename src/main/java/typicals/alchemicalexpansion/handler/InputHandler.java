@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.client;
+package typicals.alchemicalexpansion.handler;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;

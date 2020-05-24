@@ -3,8 +3,8 @@ package typicals.alchemicalexpansion.proxy;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import typicals.alchemicalexpansion.client.InputHandler;
-import typicals.alchemicalexpansion.client.Keybindings;
+import typicals.alchemicalexpansion.handler.InputHandler;
+import typicals.alchemicalexpansion.Keybindings;
 
 public class ClientProxy extends CommonProxy {
 

@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.client;
+package typicals.alchemicalexpansion;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
