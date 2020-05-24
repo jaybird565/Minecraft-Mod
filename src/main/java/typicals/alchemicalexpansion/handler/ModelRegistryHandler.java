@@ -16,7 +16,6 @@ public class ModelRegistryHandler {
 
     @SubscribeEvent
     public static void onModelRegistry(ModelRegistryEvent event) {
-        registerItemBlockModel(ModBlocks.STONE_BLOCK, 0);
         registerItemBlockModel(ModBlocks.PILL_FURNACE_BLOCK, 0);
     }
 

@@ -1,6 +1,8 @@
 {
-  "parent": "block/",
+  "parent": "block/orientable",
   "textures": {
-    "all": ""
+    "side": "alchemicalexpansion:blocks/pill_furnace_block(Tier 0)/Pill Furnace Basic (Sides).png",
+    "front": "alchemicalexpansion:blocks/pill_furnace_block(Tier 0)/Pill Furnace Basic (Front - Off).png",
+    "top": "alchemicalexpansion:blocks/pill_furnace_block(Tier 0)/Pill Furnace Basic (Top - Off).png"
   }
 }
