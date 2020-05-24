@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common.Blocks.Testing;
+package typicals.alchemicalexpansion.common.blocks.testing;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

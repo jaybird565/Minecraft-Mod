@@ -1,9 +1,9 @@
-package typicals.alchemicalexpansion.common.Blocks.Testing;
+package typicals.alchemicalexpansion.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
+import typicals.alchemicalexpansion.common.container.PillFurnace;
 
 public class PillFurnaceGui extends GuiContainer {
 
@@ -12,17 +12,11 @@ public class PillFurnaceGui extends GuiContainer {
 
     private static final ResourceLocation background = new ResourceLocation(AlchemicalExpansion.MODID, "textures/gui/pill_furnace.png");
 
-    public PillFurnaceGui(Container inventorySlotsIn) {
-        super(inventorySlotsIn);
-    }
-
-    public PillFurnaceGui(PillFurnaceTileEntity tileEntity, PillFurnace container) {
+    public PillFurnaceGui(PillFurnace container) {
         super(container);
-
         xSize = WIDTH;
         ySize = HEIGHT;
     }
-
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {

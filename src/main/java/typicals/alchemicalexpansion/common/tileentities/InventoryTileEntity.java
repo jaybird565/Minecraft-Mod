@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common;
+package typicals.alchemicalexpansion.common.tileentities;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;

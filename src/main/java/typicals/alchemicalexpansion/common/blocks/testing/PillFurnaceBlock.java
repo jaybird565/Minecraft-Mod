@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.common.Blocks.Testing;
+package typicals.alchemicalexpansion.common.blocks.testing;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -8,7 +8,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -17,10 +16,12 @@ import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.common.ModBlock;
 import typicals.alchemicalexpansion.common.ModBlocks;
-
-import javax.annotation.Nullable;
+import typicals.alchemicalexpansion.common.tileentities.PillFurnaceTileEntity;
 
 public class PillFurnaceBlock extends ModBlock implements ITileEntityProvider {
+
+    public static final int GUI_ID = 1;
+
     public static final String name = "pill_furnace_block";
 
     public static final Material material = Material.ROCK;
@@ -56,7 +57,7 @@ public class PillFurnaceBlock extends ModBlock implements ITileEntityProvider {
         if (!(tileEntity instanceof PillFurnaceTileEntity)) {
             return false;
         }
-        playerIn.openGui(AlchemicalExpansion.alchemicalExpansion, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        playerIn.openGui(AlchemicalExpansion.alchemicalExpansion, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 }

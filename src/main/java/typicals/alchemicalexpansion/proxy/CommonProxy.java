@@ -1,6 +1,5 @@
 package typicals.alchemicalexpansion.proxy;
 
-import com.google.common.graph.Network;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
@@ -11,7 +10,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
+import typicals.alchemicalexpansion.common.GuiHandler;
 import typicals.alchemicalexpansion.common.ModBlocks;
 import typicals.alchemicalexpansion.common.ModItems;
 import typicals.alchemicalexpansion.common.PacketHandler;
@@ -28,7 +29,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         AlchemicalExpansion.logger.debug("alchemicalexpansion says hello from init");
-        NetworkRegistry.INSTANCE.registerGuiHandler(AlchemicalExpansion.alchemicalExpansion, new GuiProxy());
+        NetworkRegistry.INSTANCE.registerGuiHandler(AlchemicalExpansion.alchemicalExpansion, new GuiHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {
@@ -42,8 +43,9 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
-        ModBlocks.registerItemBlocks(event.getRegistry());
-        ModItems.registerItems(event.getRegistry());
+        IForgeRegistry<Item> registry = event.getRegistry();
+        ModBlocks.registerItemBlocks(registry);
+        ModItems.registerItems(registry);
     }
 
 }

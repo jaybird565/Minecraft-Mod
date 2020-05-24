@@ -1,20 +1,22 @@
-package typicals.alchemicalexpansion.common.Blocks.Testing;
+package typicals.alchemicalexpansion.common.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import typicals.alchemicalexpansion.common.tileentities.PillFurnaceTileEntity;
 
 public class PillFurnace extends Container {
 
     public PillFurnaceTileEntity tileEntity;
 
-    public PillFurnace(IInventory playerInventory, PillFurnaceTileEntity tileEntity) {
-        this.tileEntity = tileEntity;
+    public PillFurnace(IInventory playerInventory, TileEntity tileEntity) {
+        this.tileEntity = (PillFurnaceTileEntity) tileEntity;
 
         addOwnSlots();
         addPlayerSlots(playerInventory);
@@ -23,8 +25,6 @@ public class PillFurnace extends Container {
     private void addOwnSlots() {
         //get ItemHandler from tile entity
         IItemHandler itemHandler = this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-
-
 
         //start 9 from left
         int x = 9;
