@@ -1,8 +1,10 @@
 {
+  "forge_marker": 1,
   "variants": {
-    "facing=north": { "model": "pill_furnace_block" },
-    "facing=south": { "model": "pill_furnace_block", "y": 180 },
-    "facing=west":  { "model": "pill_furnace_block", "y": 270 },
-    "facing=east":  { "model": "pill_furnace_block", "y": 90 }
+    "normal": {
+      "model": "alchemicalexpansion:pill_furnace_block"
+    }
   }
 }
+
+
