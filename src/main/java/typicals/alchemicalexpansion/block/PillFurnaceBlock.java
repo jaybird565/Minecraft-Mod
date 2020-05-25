@@ -19,31 +19,22 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
 
     public static final int GUI_ID = 1;
 
-    public static final String name = "pill_furnace_block";
-
-    public static final Material material = Material.ROCK;
+    public static final String path = "pill_furnace_block";
 
     public PillFurnaceBlock() {
-        super(material);
+        super(path);
         this.init();
     }
 
     private void init() {
-        this.setBlockName(name);
         this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         this.setSoundType(SoundType.STONE);
-    }
-
-    @Override
-    public Item itemBlock() {
-        return new ItemBlock(ModBlocks.PILL_FURNACE_BLOCK).setRegistryName(ModBlocks.PILL_FURNACE_BLOCK.getRegistryName());
     }
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new PillFurnaceTileEntity();
     }
-
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {

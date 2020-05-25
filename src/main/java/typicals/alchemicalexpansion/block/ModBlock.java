@@ -3,32 +3,34 @@ package typicals.alchemicalexpansion.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
-
-import typicals.alchemicalexpansion.AlchemicalExpansion;
 
 public abstract class ModBlock extends Block {
 
-    protected boolean enabled;
+    protected boolean hasItemBlock = true;
 
-    protected ModBlock(Material materialIn) {
-        super(materialIn);
+    //resource location path
+    protected String path;
+
+    protected ModBlock(String path) {
+        this(path, Material.ROCK);
     }
 
-    protected ModBlock(Material materialIn, MapColor MapColorIn) {
-        super(materialIn, MapColorIn);
+    protected ModBlock(String path, Material material) {
+        super(material);
+        this.path = path;
     }
 
-    protected void setBlockName(String name) {
-        this.setRegistryName(AlchemicalExpansion.MODID, name);
-        this.setUnlocalizedName(AlchemicalExpansion.MODID + "." + name);
+    protected ModBlock(String path, Material material, MapColor mapColor) {
+        super(material, mapColor);
+        this.path = path;
     }
 
-    public abstract Item itemBlock();
-
-    public boolean isEnabled() {
-        return this.enabled;
+    public String getPath() {
+        return path;
     }
 
+    public boolean hasItemBlock() {
+        return hasItemBlock;
+    }
 
 }
