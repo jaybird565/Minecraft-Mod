@@ -15,45 +15,56 @@ public class PillFurnace extends Container {
 
     public PillFurnaceTileEntity tileEntity;
 
+    public static final int startX = 6;
+    public static final int startY = 6;
+    public static final int slotWidth = 16;
+    public static final int slotSpacing = 2;
+    public static final int inventorySpacing = 6;
+
     public PillFurnace(IInventory playerInventory, TileEntity tileEntity) {
         this.tileEntity = (PillFurnaceTileEntity) tileEntity;
 
-        addOwnSlots();
-        addPlayerSlots(playerInventory);
+        addSlots(playerInventory);
     }
 
-    private void addOwnSlots() {
+    private void addSlots(IInventory playerInventory) {
         //get ItemHandler from tile entity
         IItemHandler itemHandler = this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
-        //start 9 from left
-        int x = 9;
-        //start 6 from top
-        int y = 6;
+
+        int slotSize = slotWidth + slotSpacing;
+
+
         //add reagent slots
         for(int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(itemHandler, i, (x + (i % 3) * 18), (y + (i / 3) * 18)));
+            addSlotToContainer(new SlotItemHandler(itemHandler, i, (startX + (i % 3) * slotSize), (startY + (i / 3) * slotSize)));
         }
+
         //add fuel slot
-        //start 9 units from left + 36 (2 slots)
-        x = 45;
-        //start 6 units from top + 18 * 3 (3 slots) down + 6 spacing units
-        y = 66;
-        addSlotToContainer(new SlotItemHandler(itemHandler, 9, x, y));
+        int y = startY + slotSize * 3 + slotSize;
+        addSlotToContainer(new SlotItemHandler(itemHandler, 9, startX + slotSize, y));
 
         //add result slot
 
-        //9 units from left, + 3 reagent slots + 1 spacer slot
-        x = 81;
-        //6 units from top + 1 slot
-        y = 24;
-
+        //8 units from left, + 3 reagent slots + 1 spacer slot
+        int x = startX + slotSize * 3 + slotSize;
+        //8 units from top + 1 slot
+        y = startY + slotSize;
         addSlotToContainer(new SlotItemHandler(itemHandler, 10, x, y));
 
-    }
 
-    private void addPlayerSlots(IInventory playerInventory) {
-        //TODO
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int j = 0; j < 9; ++j)
+            {
+                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, startX + j * slotSize, startY + (slotSize * 5) + inventorySpacing + (i * slotSize)));
+            }
+        }
+
+        for (int k = 0; k < 9; ++k)
+        {
+            this.addSlotToContainer(new Slot(playerInventory, k, startX + k * slotSize, startY + (5 * slotSize) + inventorySpacing + (slotSize * 3) + inventorySpacing));
+        }
     }
 
 
