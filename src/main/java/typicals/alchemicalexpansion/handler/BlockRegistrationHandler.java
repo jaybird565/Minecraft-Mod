@@ -33,6 +33,7 @@ public class BlockRegistrationHandler extends EventHandler {
     private static void registerBlocks(IForgeRegistry<Block> registry) {
         for(ModBlock block : registeredBlocks) {
             block.setRegistryName(RegistryUtil.resourceLocation(block));
+            block.setUnlocalizedName(AlchemicalExpansion.MODID + "." + block.getPath());
             registry.register(block);
         }
     }

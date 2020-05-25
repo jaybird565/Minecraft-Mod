@@ -30,7 +30,7 @@ public class ItemRegistrationHandler extends EventHandler {
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
         for(ModBlock block: BlockRegistrationHandler.registeredBlocks) {
             if(block.hasItemBlock()) {
-                registry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+                registry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()).setUnlocalizedName(block.getUnlocalizedName()));
             }
         }
     }
