@@ -8,12 +8,14 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import typicals.alchemicalexpansion.block.ModBlocks;
+import typicals.alchemicalexpansion.item.ModItems;
 
 public class ModelRegistrationHandler extends EventHandler {
 
     @SubscribeEvent
     public void onModelRegistry(ModelRegistryEvent event) {
         registerItemBlockModel(ModBlocks.PILL_FURNACE_BLOCK, 0);
+        registerItemModel(ModItems.PILL, 0);
     }
 
     private static void registerItemBlockModel(Block block, int meta) {

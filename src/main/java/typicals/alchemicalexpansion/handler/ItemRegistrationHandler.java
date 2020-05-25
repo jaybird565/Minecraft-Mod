@@ -5,8 +5,11 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlock;
 import typicals.alchemicalexpansion.item.ModItem;
+import typicals.alchemicalexpansion.item.Pill;
+import typicals.alchemicalexpansion.util.RegistryUtil;
 
 public class ItemRegistrationHandler extends EventHandler {
 
@@ -14,7 +17,7 @@ public class ItemRegistrationHandler extends EventHandler {
 
 
     public static final ModItem[] registeredItems = {
-
+        new Pill()
     };
 
     @SubscribeEvent
@@ -37,6 +40,8 @@ public class ItemRegistrationHandler extends EventHandler {
 
     public static void registerItems(IForgeRegistry<Item> registry) {
         for(ModItem item: registeredItems) {
+            item.setRegistryName(RegistryUtil.resourceLocation(item))
+                    .setUnlocalizedName(AlchemicalExpansion.MODID + "." + item.getPath());
             registry.register(item);
         }
     }

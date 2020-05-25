@@ -9,6 +9,6 @@ import typicals.alchemicalexpansion.AlchemicalExpansion;
 @ObjectHolder(AlchemicalExpansion.MODID)
 public class ModItems {
 
-    public static void registerItems(IForgeRegistry<Item> registry) {
-    }
+    public static final Pill PILL = null;
+
 }
