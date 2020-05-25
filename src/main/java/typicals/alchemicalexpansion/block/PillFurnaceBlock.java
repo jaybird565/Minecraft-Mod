@@ -2,6 +2,8 @@ package typicals.alchemicalexpansion.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,6 +24,8 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
     public static final int GUI_ID = 1;
 
     public static final String path = "pill_furnace_block";
+
+    public static final PropertyDirection direction = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public PillFurnaceBlock() {
         super(path);
@@ -51,4 +55,17 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
         playerIn.openGui(AlchemicalExpansion.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        //idk
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, direction);
+    }
+
+
 }
