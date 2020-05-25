@@ -1,8 +1,0 @@
-{
-  "parent": "block/orientable",
-    "textures": {
-      "front": "alchemicalexpansion:pill_furnace_basic_front_off",
-      "side": "alchemicalexpansion:pill_furnace_basic_sides",
-      "top": "alchemicalexpansion:pill_furnace_basic_top_off"
-    }
-}

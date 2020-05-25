@@ -1,5 +1,10 @@
 {
-  "parent": "alchemicalexpansion:block/pill_furnace_block",
+  "parent": "block/orientable",
+  "textures": {
+    "front": "alchemicalexpansion:blocks/basic_pill_furnace/pill_furnace_basic_front_off",
+    "side": "alchemicalexpansion:blocks/basic_pill_furnace/pill_furnace_basic_sides",
+    "top": "alchemicalexpansion:blocks/basic_pill_furnace/pill_furnace_basic_top_off"
+  },
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],
