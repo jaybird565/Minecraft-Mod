@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
+import typicals.alchemicalexpansion.handler.BlockRegistrationHandler;
 import typicals.alchemicalexpansion.proxy.CommonProxy;
 
 
@@ -18,10 +19,11 @@ public class AlchemicalExpansion {
     public static Logger logger;
 
     @Instance
-    public static AlchemicalExpansion alchemicalExpansion;
+    public static AlchemicalExpansion instance;
 
     @SidedProxy(clientSide = "typicals.alchemicalexpansion.proxy.ClientProxy", serverSide = "typicals.alchemicalexpansion.proxy.ServerProxy")
     public static CommonProxy proxy;
+
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
