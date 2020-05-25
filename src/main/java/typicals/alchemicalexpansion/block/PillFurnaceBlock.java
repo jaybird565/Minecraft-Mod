@@ -1,5 +1,6 @@
 package typicals.alchemicalexpansion.block;
 
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -19,13 +20,16 @@ import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 
+import javax.annotation.Nonnull;
+
 public class PillFurnaceBlock extends ModBlockTileEntity {
+
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
     public static final int GUI_ID = 1;
 
     public static final String path = "pill_furnace_block";
 
-    public static final PropertyDirection direction = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public PillFurnaceBlock() {
         super(path);
@@ -35,6 +39,7 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
     private void init() {
         this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         this.setSoundType(SoundType.STONE);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     @Override
@@ -59,13 +64,29 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        //idk
+        worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()));
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, direction);
+        return new BlockStateContainer(this, FACING);
     }
 
+    @Nonnull
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        EnumFacing enumfacing = EnumFacing.getFront(meta);
+
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
+            enumfacing = EnumFacing.NORTH;
+        }
+
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    }
 
 }
