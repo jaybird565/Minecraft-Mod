@@ -1,7 +1,6 @@
 package typicals.alchemicalexpansion.tileentity;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.ITickableTextureObject;
 import net.minecraft.util.ITickable;
 import typicals.alchemicalexpansion.block.ModBlocks;
 
@@ -15,6 +14,8 @@ public class PillFurnaceTileEntity extends ItemHandlerTileEntity implements ITic
 
     private int counter = 0;
 
+    private boolean isSmelting = false;
+
     @Override
     public int size() {
         return SIZE;
@@ -27,6 +28,7 @@ public class PillFurnaceTileEntity extends ItemHandlerTileEntity implements ITic
 
     @Override
     public void update() {
+
         //don't update on client side
         if (world.isRemote) {
             return;

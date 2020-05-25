@@ -2,9 +2,7 @@ package typicals.alchemicalexpansion.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -31,7 +29,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         AlchemicalExpansion.logger.debug("alchemicalexpansion says hello from init");
-        NetworkRegistry.INSTANCE.registerGuiHandler(AlchemicalExpansion.alchemicalExpansion, new GuiHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(AlchemicalExpansion.instance, new GuiHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {

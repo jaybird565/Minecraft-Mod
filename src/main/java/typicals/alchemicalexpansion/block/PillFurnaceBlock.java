@@ -55,7 +55,7 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
         if (!(tileEntity instanceof PillFurnaceTileEntity)) {
             return false;
         }
-        playerIn.openGui(AlchemicalExpansion.alchemicalExpansion, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        playerIn.openGui(AlchemicalExpansion.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 }
