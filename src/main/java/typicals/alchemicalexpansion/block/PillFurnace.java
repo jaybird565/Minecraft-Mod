@@ -1,8 +1,6 @@
 package typicals.alchemicalexpansion.block;
 
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,14 +14,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
+import typicals.alchemicalexpansion.Properties;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class PillFurnace extends ModBlockTileEntity {
-
-    public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
     public static final int GUI_ID = 1;
 
@@ -50,7 +47,7 @@ public class PillFurnace extends ModBlockTileEntity {
             this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         }
         this.setSoundType(SoundType.STONE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(Properties.FACING, EnumFacing.NORTH));
         this.setHardness(1.5f);
         this.setResistance(10f);
 
@@ -78,12 +75,12 @@ public class PillFurnace extends ModBlockTileEntity {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()));
+        worldIn.setBlockState(pos, state.withProperty(Properties.FACING, placer.getHorizontalFacing().getOpposite()));
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
+        return new BlockStateContainer(this, Properties.FACING);
     }
 
 
@@ -95,12 +92,12 @@ public class PillFurnace extends ModBlockTileEntity {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return this.getDefaultState().withProperty(Properties.FACING, enumfacing);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumFacing) state.getValue(FACING)).getIndex();
+        return ((EnumFacing) state.getValue(Properties.FACING)).getIndex();
     }
 
     @Override
@@ -122,9 +119,9 @@ public class PillFurnace extends ModBlockTileEntity {
 
         this.updatingBlock = true;
         if (lit) {
-            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_LIT.getDefaultState().withProperty(FACING, state.getValue(FACING)));
+            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_LIT.getDefaultState().withProperty(Properties.FACING, state.getValue(Properties.FACING)));
         } else {
-            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)));
+            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE.getDefaultState().withProperty(Properties.FACING, state.getValue(Properties.FACING)));
         }
         this.updatingBlock = false;
 

@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.handler.BlockRegistrationHandler;
+import typicals.alchemicalexpansion.handler.EventHandler;
 import typicals.alchemicalexpansion.handler.ItemRegistrationHandler;
 import typicals.alchemicalexpansion.handler.PacketHandler;
 import typicals.alchemicalexpansion.util.RegistryUtil;
