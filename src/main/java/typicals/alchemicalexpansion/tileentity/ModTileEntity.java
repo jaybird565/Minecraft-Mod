@@ -13,6 +13,10 @@ public abstract class ModTileEntity extends TileEntity {
 
     public abstract Block[] validBlocks();
 
+    ModTileEntity() {
+        super();
+    }
+
     public boolean canInteractWith(EntityPlayer playerIn) {
         return !isInvalid() && BlockUtil.canInteractWith(playerIn, this.getPos());
     }

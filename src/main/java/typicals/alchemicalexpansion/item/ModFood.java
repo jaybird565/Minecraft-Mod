@@ -2,7 +2,7 @@ package typicals.alchemicalexpansion.item;
 
 import net.minecraft.item.ItemFood;
 
-public class ModFood extends ItemFood {
+public abstract class ModFood extends ItemFood {
 
     protected String path;
 

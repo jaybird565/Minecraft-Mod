@@ -15,6 +15,10 @@ public abstract class ItemHandlerTileEntity extends ModTileEntity {
 
     public abstract int size();
 
+    public ItemHandlerTileEntity() {
+        super();
+    }
+
     protected ItemStackHandler itemStackHandler = new ItemStackHandler(size()) {
         @Override
         protected void onContentsChanged(int slot) {

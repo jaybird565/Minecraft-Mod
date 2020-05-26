@@ -27,27 +27,26 @@ public class PillFurnace extends ModBlockTileEntity {
 
     public static final int GUI_ID = 1;
 
-
     public static final String pathOff = "pill_furnace";
     public static final String pathOn = "pill_furnace_lit";
 
-    private static boolean updatingBlock;
+    private boolean updatingBlock;
 
-    private static boolean lit;
+    private boolean lit;
 
-    public PillFurnace(boolean active) {
+    public PillFurnace(boolean lit) {
         super(pathOff);
-        if (active) {
+        if (lit) {
             this.path = pathOn;
             this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
             this.setLightLevel(0.900F);
         }
-        PillFurnace.lit = active;
+        this.lit = lit;
         this.init();
     }
 
     private void init() {
-        if (!PillFurnace.lit) {
+        if (!this.lit) {
             this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         }
         this.setSoundType(SoundType.STONE);
@@ -87,8 +86,7 @@ public class PillFurnace extends ModBlockTileEntity {
         return new BlockStateContainer(this, FACING);
     }
 
-    /*
-    @Nonnull
+
     @Override
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing enumfacing = EnumFacing.getFront(meta);
@@ -99,14 +97,12 @@ public class PillFurnace extends ModBlockTileEntity {
 
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
-     */
 
     @Override
     public int getMetaFromState(IBlockState state) {
         return ((EnumFacing) state.getValue(FACING)).getIndex();
     }
 
-    @Nonnull
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(ModBlocks.PILL_FURNACE_LIT);
@@ -119,18 +115,18 @@ public class PillFurnace extends ModBlockTileEntity {
         }
     }
 
-    public void updatePillFurnaceState(boolean active, World worldin, BlockPos pos) {
+    public void updatePillFurnaceState(boolean lit, World worldin, BlockPos pos) {
         IBlockState state = worldin.getBlockState(pos);
         TileEntity tile = worldin.getTileEntity(pos);
-        PillFurnace.lit = active;
+        this.lit = lit;
 
-        updatingBlock = true;
-        if (active = true) {
-            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE.getDefaultState().withProperty(BlockHorizontal.FACING, state.getValue(BlockHorizontal.FACING)));
+        this.updatingBlock = true;
+        if (lit) {
+            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_LIT.getDefaultState().withProperty(FACING, state.getValue(FACING)));
         } else {
-            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_LIT.getDefaultState().withProperty(BlockHorizontal.FACING, state.getValue(BlockHorizontal.FACING)));
+            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)));
         }
-        updatingBlock = false;
+        this.updatingBlock = false;
 
         if (tile != null) {
             tile.validate();
