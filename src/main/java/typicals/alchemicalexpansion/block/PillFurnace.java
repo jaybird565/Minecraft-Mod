@@ -102,7 +102,7 @@ public class PillFurnace extends ModBlockTileEntity {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(ModBlocks.PILL_FURNACE_LIT);
+        return Item.getItemFromBlock(ModBlocks.PILL_FURNACE);
     }
 
     @Override

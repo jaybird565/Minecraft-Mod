@@ -32,33 +32,24 @@ public class PillFurnace extends ModContainer {
 
         //add reagent slots
         for(int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(itemHandler, i, (startX + (i % 3) * slotSize), (startY + (i / 3) * slotSize)));
+            addSlotToContainer(new SlotItemHandler(itemHandler, i, (20 + (i % 3) * slotSize), (12 + (i / 3) * slotSize)));
         }
 
         //add fuel slot
-        int y = startY + slotSize * 3 + slotSize;
-        addSlotToContainer(new SlotItemHandler(itemHandler, 9, startX + slotSize, y));
+        addSlotToContainer(new SlotItemHandler(itemHandler, 9, 38, 84));
 
         //add result slot
-
-        //8 units from left, + 3 reagent slots + 1 spacer slot
-        int x = startX + slotSize * 3 + slotSize;
-        //8 units from top + 1 slot
-        y = startY + slotSize;
-        addSlotToContainer(new SlotItemHandler(itemHandler, 10, x, y));
+        addSlotToContainer(new SlotItemHandler(itemHandler, 10, 116, 30));
 
 
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 9; ++j)
-            {
-                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, startX + j * slotSize, startY + (slotSize * 5) + inventorySpacing + (i * slotSize)));
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * slotSize, 111 + (i * slotSize)));
             }
         }
 
-        for (int k = 0; k < 9; ++k)
-        {
-            this.addSlotToContainer(new Slot(playerInventory, k, startX + k * slotSize, startY + (5 * slotSize) + inventorySpacing + (slotSize * 3) + inventorySpacing));
+        for (int k = 0; k < 9; ++k) {
+            this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * slotSize, 169));
         }
     }
 
