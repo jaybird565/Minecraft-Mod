@@ -13,7 +13,8 @@ public class ModelRegistrationHandler extends EventHandler {
 
     @SubscribeEvent
     public void onModelRegistry(ModelRegistryEvent event) {
-        registerItemBlockModel(ModBlocks.PILL_FURNACE_BLOCK, 0);
+        registerItemBlockModel(ModBlocks.PILL_FURNACE_BLOCK_OFF, 0);
+        registerItemBlockModel(ModBlocks.PILL_FURNACE_BLOCK_ON, 0);
     }
 
     private static void registerItemBlockModel(Block block, int meta) {

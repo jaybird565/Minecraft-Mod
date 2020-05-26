@@ -7,9 +7,8 @@ import typicals.alchemicalexpansion.AlchemicalExpansion;
 @ObjectHolder(AlchemicalExpansion.MODID)
 public class ModBlocks {
 
-    public static final PillFurnaceBlock PILL_FURNACE_BLOCK = null;
-
-
+    public static final PillFurnaceBlock PILL_FURNACE_BLOCK_OFF = null;
+    public static final PillFurnaceBlock PILL_FURNACE_BLOCK_ON = null;
 
 
 

@@ -16,7 +16,8 @@ public class BlockRegistrationHandler extends EventHandler {
     private static boolean blocksRegistered = false;
 
     public static final ModBlock[] registeredBlocks = {
-            new PillFurnaceBlock()
+            new PillFurnaceBlock(true),
+            new PillFurnaceBlock(false),
     };
 
     @SubscribeEvent

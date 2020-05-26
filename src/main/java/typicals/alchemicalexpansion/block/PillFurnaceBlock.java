@@ -8,15 +8,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
@@ -30,13 +27,23 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
 
     public static final int GUI_ID = 1;
 
-    public static final String path = "pill_furnace_block";
+
+    public static final String pathOff = "pill_furnace_block_off";
+    public static final String pathOn = "pill_furnace_block_on";
 
     private static boolean updatingBlock;
 
-    public PillFurnaceBlock() {
-        super(path);
+    private static boolean active;
+
+    public PillFurnaceBlock(boolean active) {
+        super(pathOff);
+        if(active){
+            this.path = pathOn;
+            this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+            this.setLightLevel(0.900F);
+        }
         this.init();
+        this.active = active;
     }
 
     private void init() {
@@ -45,6 +52,7 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.setHardness(1.5f);
         this.setResistance(10f);
+
     }
 
     @Override
@@ -98,13 +106,30 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(ModBlocks.PILL_FURNACE_BLOCK);
+        return Item.getItemFromBlock(ModBlocks.PILL_FURNACE_BLOCK_OFF);
     }
 
     @Override
     public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state)
     {
+        if (!updatingBlock)
+        {
             super.breakBlock(world, pos, state);
+        }
+    }
+
+    public void updatePillFurnaceState(boolean active,World worldin,BlockPos pos){
+        IBlockState state = worldin.getBlockState(pos);
+        TileEntity tile = worldin.getTileEntity(pos);
+        active = this.active;
+        this.updatingBlock = true;
+
+        //TODO
+        if(active = true){
+            //worldin.setBlockState(pos,  );
+        }else{
+            //worldin.setBlockState(pos, state.withProperty();
+        }
     }
 
 
