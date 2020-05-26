@@ -26,14 +26,11 @@ public abstract class ModBlock extends Block {
     }
 
     public String getPath() {
-        return this.getPath(true);
+        return this.path;
     }
 
     public boolean hasItemBlock() {
         return hasItemBlock;
     }
 
-    public String getPath(boolean isRegistryName) {
-            return this.path;
-    }
 }

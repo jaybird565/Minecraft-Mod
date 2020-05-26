@@ -3,6 +3,7 @@ package typicals.alchemicalexpansion.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.util.ITickable;
 import typicals.alchemicalexpansion.block.ModBlocks;
+import typicals.alchemicalexpansion.block.PillFurnace;
 
 public class PillFurnaceTileEntity extends ItemHandlerTileEntity implements ITickable {
 
@@ -10,7 +11,7 @@ public class PillFurnaceTileEntity extends ItemHandlerTileEntity implements ITic
 
     public static final Block[] validBlocks = {ModBlocks.PILL_FURNACE_LIT};
 
-    public static final String name = "pill_furnace";
+    public static final String name = PillFurnace.pathOff;
 
     private int counter = 0;
 

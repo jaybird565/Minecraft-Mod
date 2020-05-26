@@ -12,4 +12,5 @@ public abstract class ModBlockTileEntity extends ModBlock implements ITileEntity
     public boolean hasTileEntity() {
         return true;
     }
+
 }

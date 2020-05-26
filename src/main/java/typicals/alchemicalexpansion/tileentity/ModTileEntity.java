@@ -11,9 +11,6 @@ import typicals.alchemicalexpansion.util.BlockUtil;
 
 public abstract class ModTileEntity extends TileEntity {
 
-    @CapabilityInject(IItemHandler.class)
-    public static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
-
     public abstract Block[] validBlocks();
 
     public boolean canInteractWith(EntityPlayer playerIn) {

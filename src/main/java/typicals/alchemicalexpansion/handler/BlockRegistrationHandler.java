@@ -5,8 +5,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
-import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlock;
+import typicals.alchemicalexpansion.block.ModBlockTileEntity;
 import typicals.alchemicalexpansion.block.PillFurnace;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 import typicals.alchemicalexpansion.util.RegistryUtil;
@@ -28,7 +28,7 @@ public class BlockRegistrationHandler extends EventHandler {
     }
 
     public static void registerTileEntities() {
-        GameRegistry.registerTileEntity(PillFurnaceTileEntity.class, RegistryUtil.resourceLocation("pill_furnace"));
+        GameRegistry.registerTileEntity(PillFurnaceTileEntity.class, RegistryUtil.resourceLocation(PillFurnace.pathOff));
     }
 
     private static void registerBlocks(IForgeRegistry<Block> registry) {

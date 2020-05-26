@@ -3,10 +3,15 @@ package typicals.alchemicalexpansion.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 
 public abstract class ItemHandlerTileEntity extends ModTileEntity {
+
+    @CapabilityInject(IItemHandler.class)
+    public static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 
     public abstract int size();
 

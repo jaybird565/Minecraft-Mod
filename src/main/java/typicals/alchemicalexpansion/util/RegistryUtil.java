@@ -48,8 +48,8 @@ public class RegistryUtil {
         NetworkRegistry.INSTANCE.registerGuiHandler(AlchemicalExpansion.instance, guiHandler);
     }
 
-
     public static String unlocalizedName(ModBlock block) {
-        return nameSpace + "." + block.getPath(false);
+        return nameSpace + "." + block.getPath();
     }
+
 }

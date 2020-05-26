@@ -138,12 +138,4 @@ public class PillFurnace extends ModBlockTileEntity {
         }
     }
 
-    @Override
-    public String getPath(boolean isRegistryName) {
-        if(isRegistryName) {
-            return this.path;
-        } else {
-            return this.pathOff;
-        }
-    }
 }
