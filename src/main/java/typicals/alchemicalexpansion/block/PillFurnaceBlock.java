@@ -124,7 +124,7 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
         TileEntity tile = worldin.getTileEntity(pos);
         active = PillFurnaceBlock.active;
 
-        this.updatingBlock = true;
+        updatingBlock = true;
         if (active = true) {
             worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_BLOCK_ON.getDefaultState().withProperty(BlockHorizontal.FACING, state.getValue(BlockHorizontal.FACING)));
         } else {
