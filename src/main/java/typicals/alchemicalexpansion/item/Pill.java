@@ -8,5 +8,7 @@ public class Pill extends ModFood {
 
     public Pill() {
         super(0,0,false, path);
+        this.setAlwaysEdible();
     }
+
 }
