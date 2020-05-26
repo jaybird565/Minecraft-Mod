@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 tile.alchemicalexpansion.pill_furnace_block_off.name=Basic Pill Furnace
 tile.alchemicalexpansion.pill_furnace_block_on.name=Basic Pill Furnace
-=======
-tile.alchemicalexpansion.pill_furnace_block.name=Basic Pill Furnace
 item.alchemicalexpansion.pill.name=Pill
->>>>>>> d907cf9a9c5e10a46fe5d3197938d72ebb863fa8
+
