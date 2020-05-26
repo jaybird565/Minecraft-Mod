@@ -9,6 +9,7 @@ import typicals.alchemicalexpansion.handler.BlockRegistrationHandler;
 import typicals.alchemicalexpansion.handler.EventHandler;
 import typicals.alchemicalexpansion.handler.GuiHandler;
 import typicals.alchemicalexpansion.handler.ItemRegistrationHandler;
+import typicals.alchemicalexpansion.item.ModFood;
 import typicals.alchemicalexpansion.item.ModItem;
 
 public class RegistryUtil {
@@ -30,6 +31,9 @@ public class RegistryUtil {
     }
 
     public static ResourceLocation resourceLocation(ModItem item) {
+        return resourceLocation(item.getPath());
+    }
+    public static ResourceLocation resourceLocation(ModFood item) {
         return resourceLocation(item.getPath());
     }
 
