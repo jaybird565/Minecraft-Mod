@@ -29,7 +29,6 @@ public class RegistryUtil {
     public static ResourceLocation resourceLocation(ModBlock block) {
         return resourceLocation(block.getPath());
     }
-
     public static ResourceLocation resourceLocation(ModItem item) {
         return resourceLocation(item.getPath());
     }
@@ -47,5 +46,10 @@ public class RegistryUtil {
 
     public static void registerGuiHandler() {
         NetworkRegistry.INSTANCE.registerGuiHandler(AlchemicalExpansion.instance, guiHandler);
+    }
+
+
+    public static String unlocalizedName(ModBlock block) {
+        return nameSpace + "." + block.getPath(false);
     }
 }

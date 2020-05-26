@@ -16,40 +16,38 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
-import typicals.alchemicalexpansion.handler.BlockRegistrationHandler;
-import typicals.alchemicalexpansion.handler.ModelRegistrationHandler;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class PillFurnaceBlock extends ModBlockTileEntity {
+public class PillFurnace extends ModBlockTileEntity {
 
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
     public static final int GUI_ID = 1;
 
 
-    public static final String pathOff = "pill_furnace_block_off";
-    public static final String pathOn = "pill_furnace_block_on";
+    public static final String pathOff = "pill_furnace";
+    public static final String pathOn = "pill_furnace_lit";
 
     private static boolean updatingBlock;
 
-    private static boolean active;
+    private static boolean lit;
 
-    public PillFurnaceBlock(boolean active) {
+    public PillFurnace(boolean active) {
         super(pathOff);
         if (active) {
             this.path = pathOn;
             this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
             this.setLightLevel(0.900F);
         }
-        PillFurnaceBlock.active = active;
+        PillFurnace.lit = active;
         this.init();
     }
 
     private void init() {
-        if (!PillFurnaceBlock.active) {
+        if (!PillFurnace.lit) {
             this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         }
         this.setSoundType(SoundType.STONE);
@@ -89,6 +87,7 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
         return new BlockStateContainer(this, FACING);
     }
 
+    /*
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
@@ -100,6 +99,7 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
 
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
+     */
 
     @Override
     public int getMetaFromState(IBlockState state) {
@@ -109,7 +109,7 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
     @Nonnull
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(ModBlocks.PILL_FURNACE_BLOCK_OFF);
+        return Item.getItemFromBlock(ModBlocks.PILL_FURNACE_LIT);
     }
 
     @Override
@@ -122,13 +122,13 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
     public void updatePillFurnaceState(boolean active, World worldin, BlockPos pos) {
         IBlockState state = worldin.getBlockState(pos);
         TileEntity tile = worldin.getTileEntity(pos);
-        PillFurnaceBlock.active = active;
+        PillFurnace.lit = active;
 
         updatingBlock = true;
         if (active = true) {
-            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_BLOCK_ON.getDefaultState().withProperty(BlockHorizontal.FACING, state.getValue(BlockHorizontal.FACING)));
+            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE.getDefaultState().withProperty(BlockHorizontal.FACING, state.getValue(BlockHorizontal.FACING)));
         } else {
-            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_BLOCK_OFF.getDefaultState().withProperty(BlockHorizontal.FACING, state.getValue(BlockHorizontal.FACING)));
+            worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_LIT.getDefaultState().withProperty(BlockHorizontal.FACING, state.getValue(BlockHorizontal.FACING)));
         }
         updatingBlock = false;
 
@@ -138,5 +138,12 @@ public class PillFurnaceBlock extends ModBlockTileEntity {
         }
     }
 
-
+    @Override
+    public String getPath(boolean isRegistryName) {
+        if(isRegistryName) {
+            return this.path;
+        } else {
+            return this.pathOff;
+        }
+    }
 }

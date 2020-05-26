@@ -8,7 +8,7 @@ public class PillFurnaceTileEntity extends ItemHandlerTileEntity implements ITic
 
     public static final int SIZE = 11;
 
-    public static final Block[] validBlocks = {ModBlocks.PILL_FURNACE_BLOCK_OFF};
+    public static final Block[] validBlocks = {ModBlocks.PILL_FURNACE_LIT};
 
     public static final String name = "pill_furnace";
 

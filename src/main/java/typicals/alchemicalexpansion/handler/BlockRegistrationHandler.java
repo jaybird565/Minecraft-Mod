@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlock;
-import typicals.alchemicalexpansion.block.PillFurnaceBlock;
+import typicals.alchemicalexpansion.block.PillFurnace;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 import typicals.alchemicalexpansion.util.RegistryUtil;
 
@@ -16,8 +16,8 @@ public class BlockRegistrationHandler extends EventHandler {
     private static boolean blocksRegistered = false;
 
     public static final ModBlock[] registeredBlocks = {
-            new PillFurnaceBlock(true),
-            new PillFurnaceBlock(false),
+            new PillFurnace(true),
+            new PillFurnace(false),
     };
 
     @SubscribeEvent
@@ -28,13 +28,13 @@ public class BlockRegistrationHandler extends EventHandler {
     }
 
     public static void registerTileEntities() {
-        GameRegistry.registerTileEntity(PillFurnaceTileEntity.class, AlchemicalExpansion.MODID + ":" + "pill_furnace");
+        GameRegistry.registerTileEntity(PillFurnaceTileEntity.class, RegistryUtil.resourceLocation("pill_furnace"));
     }
 
     private static void registerBlocks(IForgeRegistry<Block> registry) {
         for(ModBlock block : registeredBlocks) {
-            block.setRegistryName(RegistryUtil.resourceLocation(block));
-            block.setUnlocalizedName(AlchemicalExpansion.MODID + "." + block.getPath());
+            block.setRegistryName(RegistryUtil.resourceLocation(block))
+                    .setUnlocalizedName(RegistryUtil.unlocalizedName(block));
             registry.register(block);
         }
     }
