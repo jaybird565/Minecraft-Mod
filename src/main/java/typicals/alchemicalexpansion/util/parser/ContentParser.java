@@ -61,6 +61,9 @@ public class ContentParser {
 
     }
 
+
+
+
     public static String assetsPath(ModContainer mod) {
         return "assets/" + mod.getModId() + "/";
     }
@@ -69,8 +72,14 @@ public class ContentParser {
         return assetsPath(mod) + "content/";
     }
 
+
     public static boolean parseEntry(Map.Entry<String, JsonElement> entry) {
         //TODO parse an entry in jay's custom content file(s)
+        if(entry.getKey() == "pillfurnace"){
+
+        } else {
+            return false;
+        }
         return true;
     }
 }
