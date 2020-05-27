@@ -1,7 +1,7 @@
 package typicals.alchemicalexpansion.item.crafting.Machines;
 
 
-public class PillFurnaceCrafting extends MachineRecipe {
+public class PillFurnaceRecipe extends MachineRecipe {
 
 }
 
