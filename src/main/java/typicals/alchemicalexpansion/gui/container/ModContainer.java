@@ -4,11 +4,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import typicals.alchemicalexpansion.tileentity.ItemHandlerTileEntity;
+import typicals.alchemicalexpansion.tileentity.InventoryTileEntity;
 
 public class ModContainer extends Container {
 
-    protected ItemHandlerTileEntity tileEntity;
+    protected InventoryTileEntity tileEntity;
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {

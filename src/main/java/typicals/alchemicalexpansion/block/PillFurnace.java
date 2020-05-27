@@ -6,6 +6,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -106,10 +108,18 @@ public class PillFurnace extends ModBlockTileEntity {
     }
 
     @Override
-    public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        if (!updatingBlock) {
-            super.breakBlock(world, pos, state);
+    public void breakBlock(World world,  BlockPos pos, IBlockState state) {
+        if (updatingBlock) {
+            return;
         }
+
+        TileEntity tileEntity = world.getTileEntity(pos);
+
+        if(tileEntity instanceof PillFurnaceTileEntity) {
+            InventoryHelper.dropInventoryItems(world, pos, (IInventory) tileEntity);
+        }
+
+        super.breakBlock(world, pos, state);
     }
 
     public void updatePillFurnaceState(boolean lit, World worldin, BlockPos pos) {

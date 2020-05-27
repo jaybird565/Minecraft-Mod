@@ -1,5 +1,10 @@
 package typicals.alchemicalexpansion.tileentity;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -7,23 +12,40 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
 
-public abstract class ItemHandlerTileEntity extends ModTileEntity {
+
+public abstract class InventoryTileEntity extends ModTileEntity {
 
     @CapabilityInject(IItemHandler.class)
     public static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 
     public abstract int size();
 
-    public ItemHandlerTileEntity() {
+
+    public InventoryTileEntity() {
         super();
     }
+
+
+
+    public abstract boolean isStorage(int slot, ItemStack stack);
 
     protected ItemStackHandler itemStackHandler = new ItemStackHandler(size()) {
         @Override
         protected void onContentsChanged(int slot) {
             //mark the InventoryTileEntity instance dirty to keep contents persistent
-            ItemHandlerTileEntity.this.markDirty();
+            InventoryTileEntity.this.markDirty();
+        }
+
+        @Nonnull
+        @Override
+        public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+            if(InventoryTileEntity.this.isStorage(slot, stack)) {
+                return super.insertItem(slot, stack, simulate);
+            } else {
+                return stack;
+            }
         }
     };
 
@@ -59,5 +81,4 @@ public abstract class ItemHandlerTileEntity extends ModTileEntity {
         }
         return super.getCapability(capability, facing);
     }
-
 }
