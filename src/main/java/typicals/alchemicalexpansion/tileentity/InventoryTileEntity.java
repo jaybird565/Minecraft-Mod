@@ -31,6 +31,21 @@ public abstract class InventoryTileEntity extends ModTileEntity {
 
     public abstract boolean isStorage(int slot, ItemStack stack);
 
+    public ItemStack getStackInSlot(int slot) {
+        return this.itemStackHandler.getStackInSlot(slot);
+    }
+
+    public ItemStack[] getStacksInSlots(int[] slots) {
+        ItemStack[] stacks = new ItemStack[slots.length];
+
+        int stackIndex = 0;
+        for(int slot : slots) {
+            stacks[stackIndex] = this.getStackInSlot(slot);
+            stackIndex++;
+        }
+        return stacks;
+    }
+
     protected ItemStackHandler itemStackHandler = new ItemStackHandler(size()) {
         @Override
         protected void onContentsChanged(int slot) {

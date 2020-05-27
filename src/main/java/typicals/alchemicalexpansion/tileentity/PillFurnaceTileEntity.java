@@ -1,18 +1,29 @@
 package typicals.alchemicalexpansion.tileentity;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import typicals.alchemicalexpansion.block.ModBlocks;
+import typicals.alchemicalexpansion.gui.container.PillFurnace;
+import typicals.alchemicalexpansion.item.ModItems;
 
 public class PillFurnaceTileEntity extends InventoryTileEntity implements ITickable {
 
     public static final int SIZE = 11;
 
-
     public static final Block[] validBlocks = {ModBlocks.PILL_FURNACE_LIT, ModBlocks.PILL_FURNACE};
 
+    private int burnTime = 0;
+
+    private int cookTime = 0;
+
     private int counter = 0;
+
+    private int cookDuration = 200; //200 ticks to smelt something by default
 
     private boolean isSmelting = false;
 
@@ -51,14 +62,56 @@ public class PillFurnaceTileEntity extends InventoryTileEntity implements ITicka
             return;
         }
 
-        if (counter == 20) {
-
-            //do something once a second
-
-            counter = 0;
+        //update result slot
+        if (cookTime >= cookDuration) {
+            cookTime = 0;
+            ItemStack resultStack = this.getStackInSlot(PillFurnace.RESULT_SLOT);
+            if (resultStack.isEmpty()) {
+                this.itemStackHandler.setStackInSlot(1, new ItemStack(ModItems.PILL));
+            }
+        }
+        //update cookTime
+        if(this.isSmelting && hasValidReagents()) {
+                this.cookTime++;
         } else {
-            counter++;
+            this.cookTime = 0;
+        }
+
+        //update burnTime
+        ItemStack fuelStack = this.getStackInSlot(PillFurnace.FUEL_SLOT);
+        if (--burnTime <= 0) {
+            //burn fuel if cooking
+            if (isFuel(fuelStack) && cookTime > 0) {
+                this.burnTime += fuelStack.getItem().getItemBurnTime(fuelStack);
+                fuelStack.shrink(1);
+            } else {
+                this.burnTime = 0;
+            }
+        }
+        //update isSmelting
+        if(burnTime > 0) {
+            this.isSmelting = true;
+        }
+
+        if(++counter == 20) {
+            counter = 0;
+
         }
 
     }
+
+    public static boolean isFuel(ItemStack stack) {
+        return stack.getItem().getItemBurnTime(stack) > 0;
+    }
+
+    public boolean hasValidReagents() {
+        //TODO check if reagents are a recipe in typicals.alchemicalexpansion.recipes.Recipes
+        for(ItemStack reagent : this.getStacksInSlots(PillFurnace.REAGENT_SLOTS)) {
+            if(!reagent.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
