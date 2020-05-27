@@ -6,15 +6,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import scala.Array;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
 
 public class PillFurnace extends ModContainer {
 
-    public static final int startX = 6;
-    public static final int startY = 6;
     public static final int slotWidth = 16;
     public static final int slotSpacing = 2;
-    public static final int inventorySpacing = 6;
+
+    public static final int FUEL_SLOT =  9;
+
+    public static final int[] REAGENT_SLOTS = Array.range(0, 9);
+
+    public static final int RESULT_SLOT = 10;
 
     public PillFurnace(IInventory playerInventory, TileEntity tileEntity) {
         this.tileEntity = (PillFurnaceTileEntity) tileEntity;
@@ -31,15 +35,15 @@ public class PillFurnace extends ModContainer {
 
 
         //add reagent slots
-        for(int i = 0; i < 9; i++) {
+        for(int i: REAGENT_SLOTS) {
             addSlotToContainer(new SlotItemHandler(itemHandler, i, (20 + (i % 3) * slotSize), (12 + (i / 3) * slotSize)));
         }
 
         //add fuel slot
-        addSlotToContainer(new SlotItemHandler(itemHandler, 9, 38, 84));
+        addSlotToContainer(new SlotItemHandler(itemHandler, FUEL_SLOT, 38, 84));
 
         //add result slot
-        addSlotToContainer(new SlotItemHandler(itemHandler, 10, 116, 30));
+        addSlotToContainer(new SlotItemHandler(itemHandler, RESULT_SLOT, 116, 30));
 
 
         for (int i = 0; i < 3; ++i) {
