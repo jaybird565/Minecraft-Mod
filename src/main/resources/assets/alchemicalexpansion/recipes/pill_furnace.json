@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "alchemicalexpansion:pill_furnace"
+  },
+  "pattern": [
+    "CCC",
+    "C C",
+    "CCC"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:stonebrick",
+      "data": 0
+    }
+  }
+}
