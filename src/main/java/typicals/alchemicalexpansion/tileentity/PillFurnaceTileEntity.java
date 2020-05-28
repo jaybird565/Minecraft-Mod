@@ -1,12 +1,8 @@
 package typicals.alchemicalexpansion.tileentity;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import typicals.alchemicalexpansion.block.ModBlocks;
 import typicals.alchemicalexpansion.gui.container.PillFurnace;
 import typicals.alchemicalexpansion.item.ModItems;
@@ -21,7 +17,7 @@ public class PillFurnaceTileEntity extends InventoryTileEntity implements ITicka
 
     private int cookTime = 0;
 
-    private int counter = 0;
+    private int tickCounter = 0;
 
     private int cookDuration = 200; //200 ticks to smelt something by default
 
@@ -91,11 +87,6 @@ public class PillFurnaceTileEntity extends InventoryTileEntity implements ITicka
         //update isSmelting
         if(burnTime > 0) {
             this.isSmelting = true;
-        }
-
-        if(++counter == 20) {
-            counter = 0;
-
         }
 
     }
