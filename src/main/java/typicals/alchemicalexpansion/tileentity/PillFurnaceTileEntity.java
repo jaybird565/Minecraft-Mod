@@ -87,6 +87,8 @@ public class PillFurnaceTileEntity extends InventoryTileEntity implements ITicka
         //update isSmelting
         if(burnTime > 0) {
             this.isSmelting = true;
+        } else {
+            this.isSmelting = false;
         }
 
     }
