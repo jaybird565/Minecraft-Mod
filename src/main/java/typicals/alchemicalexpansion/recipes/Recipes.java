@@ -2,7 +2,6 @@ package typicals.alchemicalexpansion.recipes;
 
 import net.minecraft.item.ItemStack;
 import typicals.alchemicalexpansion.item.ModItems;
-import typicals.alchemicalexpansion.item.Pill;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 
 import java.util.ArrayList;

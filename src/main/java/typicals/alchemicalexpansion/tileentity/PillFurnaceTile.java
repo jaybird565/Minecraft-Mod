@@ -3,9 +3,7 @@ package typicals.alchemicalexpansion.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -17,7 +15,6 @@ import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlocks;
 import typicals.alchemicalexpansion.block.PillFurnaceBlock;
 import typicals.alchemicalexpansion.gui.container.PillFurnaceContainer;
-import typicals.alchemicalexpansion.item.ModItems;
 import typicals.alchemicalexpansion.recipes.Recipes;
 import typicals.alchemicalexpansion.util.ItemUtil;
 
@@ -241,7 +238,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         NBTTagCompound updateTagDescribingTileEntityState = pkt.getNbtCompound();
-        handleUpdateTag(updateTagDescribingTileEntityState);
+        this.handleUpdateTag(updateTagDescribingTileEntityState);
     }
 
     @Override

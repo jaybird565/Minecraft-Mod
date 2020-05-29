@@ -17,7 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.Properties;
-import typicals.alchemicalexpansion.item.Pill;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTile;
 
 import java.util.Random;

@@ -1,21 +1,17 @@
 package typicals.alchemicalexpansion.proxy;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.handler.BlockRegistrationHandler;
-import typicals.alchemicalexpansion.handler.EventHandler;
 import typicals.alchemicalexpansion.handler.ItemRegistrationHandler;
 import typicals.alchemicalexpansion.handler.PacketHandler;
 import typicals.alchemicalexpansion.util.RegistryUtil;
 import typicals.alchemicalexpansion.util.parser.ContentParser;
 
-import java.nio.file.Path;
 
 public class CommonProxy {
 

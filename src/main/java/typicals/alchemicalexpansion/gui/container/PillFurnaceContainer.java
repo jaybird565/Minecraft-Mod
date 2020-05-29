@@ -3,12 +3,9 @@ package typicals.alchemicalexpansion.gui.container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.Array;
-import typicals.alchemicalexpansion.AlchemicalExpansion;
-import typicals.alchemicalexpansion.tileentity.PillFurnaceTile;
 
 public class PillFurnaceContainer extends BaseContainer {
 

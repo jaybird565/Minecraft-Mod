@@ -3,15 +3,10 @@ package typicals.alchemicalexpansion.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.items.IItemHandler;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
-import typicals.alchemicalexpansion.handler.PacketHandler;
 import typicals.alchemicalexpansion.util.BlockUtil;
 
 
