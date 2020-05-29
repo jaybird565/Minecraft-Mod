@@ -1,16 +1,22 @@
 package typicals.alchemicalexpansion.tileentity;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
+import net.minecraft.world.IInteractionObject;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlocks;
 import typicals.alchemicalexpansion.block.PillFurnaceBlock;
 import typicals.alchemicalexpansion.gui.container.PillFurnaceContainer;
 import typicals.alchemicalexpansion.item.ModItems;
 
-public class PillFurnaceTile extends InventoryTile implements ITickable {
+public class PillFurnaceTile extends InventoryTile implements ITickable, IInteractionObject {
 
     public static final int SIZE = 11;
 
@@ -104,12 +110,11 @@ public class PillFurnaceTile extends InventoryTile implements ITickable {
         {
             ItemStack fuelStack = this.getStackInSlot(PillFurnaceContainer.FUEL_SLOT);
 
-            if (this.isBurning() || !fuelStack.isEmpty() /* && (!((ItemStack)this.getStackInSlot(RE)).isEmpty())*/ )
+            if (this.isBurning() || !fuelStack.isEmpty() )
             {
                 if (!this.isBurning() && this.canCook())
                 {
                     this.burnTime = this.getBurnTime(fuelStack.getItem());
-
 
                     if (this.isBurning())
                     {
@@ -222,5 +227,16 @@ public class PillFurnaceTile extends InventoryTile implements ITickable {
     @Override
     public int getFieldCount() {
         return 4;
+    }
+
+    @Override
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+    {
+        return new PillFurnaceContainer(playerInventory, this);
+    }
+
+    @Override
+    public String getGuiID() {
+        return AlchemicalExpansion.MODID + ":" + PillFurnaceBlock.pathOff;
     }
 }

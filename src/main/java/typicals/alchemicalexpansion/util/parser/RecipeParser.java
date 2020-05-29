@@ -27,10 +27,8 @@ public class RecipeParser {
         return items;
     }
 
-    //TODO write the code to take a string and figure out what item it is
     public static ItemStack itemFromString (String item){
-
-        return null;
+        return new ItemStack(Item.getByNameOrId(item));
     }
 }
 
