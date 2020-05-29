@@ -51,10 +51,6 @@ public class PillFurnaceContainer extends BaseContainer {
         this.updateFields();
         //AlchemicalExpansion.logger.debug("PillFurnaceContainer creation finished");
     }
-    @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int id, int data) {
-        this.inventory.setField(id, data);
-    }
 
     private void addSlots(IInventory playerInventory) {
         //get ItemHandler from tile entity
@@ -83,12 +79,6 @@ public class PillFurnaceContainer extends BaseContainer {
         }
     }
 
-    @Override
-    public void addListener(IContainerListener listener) {
-        super.addListener(listener);
-        listener.sendAllWindowProperties(this, this.inventory);
-        //AlchemicalExpansion.logger.debug("Listener: " + listener.toString() + " added.");
-    }
 
     @Override
     public void detectAndSendChanges()

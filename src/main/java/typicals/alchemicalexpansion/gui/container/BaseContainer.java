@@ -2,9 +2,12 @@ package typicals.alchemicalexpansion.gui.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BaseContainer extends Container {
 
@@ -13,6 +16,17 @@ public class BaseContainer extends Container {
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return inventory.isUsableByPlayer(playerIn);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int id, int data) {
+        this.inventory.setField(id, data);
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        listener.sendAllWindowProperties(this, this.inventory);
     }
 
     @Override
