@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.items.IItemHandler;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.handler.PacketHandler;
 import typicals.alchemicalexpansion.util.BlockUtil;
 
@@ -28,15 +29,13 @@ public abstract class ModTile extends TileEntity {
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        AlchemicalExpansion.logger.debug("ModTile refreshed from: " + oldState.toString() + " to: " + newState.toString() + " at: " + pos.toString());
         return oldState.getBlock() != newState.getBlock();
     }
 
-
-
-    public void updateContainingBlockState() {
-
+    public boolean onClient() {
+        return this.world.isRemote;
     }
-
 
     public IBlockState getContainingBlockState() {
         return this.world.getBlockState(this.getPos());

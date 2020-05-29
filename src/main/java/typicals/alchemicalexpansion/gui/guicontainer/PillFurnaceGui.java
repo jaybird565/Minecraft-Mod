@@ -30,14 +30,19 @@ public class PillFurnaceGui extends GuiContainer {
 
     @Override
     public void updateScreen() {
+        //AlchemicalExpansion.logger.debug("PillFurnaceGui screen update started.");
         super.updateScreen();
+        //AlchemicalExpansion.logger.debug("PillFurnaceGui screen update finished.");
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        //AlchemicalExpansion.logger.debug("Screen drawing started for PillFurnaceGui ");
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
+
+        //AlchemicalExpansion.logger.debug("Screen drawing finished for PillFurnaceGui ");
     }
 
     @Override
@@ -50,23 +55,35 @@ public class PillFurnaceGui extends GuiContainer {
         //initialized in GuiContainer.this.initGui()
         //draws the background image from 0,0 to xSize, ySize on screen starting at guiLeft, guiTop
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
         PillFurnaceTile furnaceTile = this.furnaceInv;
 
-        int value = (int)scale(14, 1 - percent(furnaceTile.getField(0), furnaceTile.getField(1)));
+        int burnTime = furnaceTile.getField(0);
+        int totalBurnTime = furnaceTile.getField(1);
+        double burnPercent = percent(burnTime, totalBurnTime);
+        int value = scale(14, 1 - burnPercent);
         drawTexturedModalRect(guiLeft + 39, guiTop + 68 + value, 176, value, 14, 14 - value);
 
-        value = (int) scale(24, percent(furnaceTile.getField(2), furnaceTile.getField(3)));
+        int cookTime = furnaceTile.getField(2);
+        int totalCookTime = furnaceTile.getField(3);
+        double cookPercent = percent(cookTime, totalCookTime);
+        value =  scale(24, cookPercent);
+        if((cookPercent == 0.0) || (cookPercent == 1.0)) {
+            value = 0;
+        }
         drawTexturedModalRect(guiLeft + 80, guiTop + 30, 176, 14, value, 17);
 
-
     }
 
-    public static float percent(int part, int total) {
-        return (float) MathHelper.clamp(((float) part / (float) total), 0.0, 1.0);
+    public static double percent(int part, int total) {
+        double dPart = part;
+        double dTotal = total;
+        return MathHelper.clamp(( dPart / (dTotal - 1)), 0.0, 1.0);
     }
 
-    public static int scale(int scalar, float value) {
-        return (int) (scalar * value);
+    public static int scale(int scalar, double value) {
+        Double result = Math.ceil(scalar * value);
+        return result.intValue();
     }
 
 

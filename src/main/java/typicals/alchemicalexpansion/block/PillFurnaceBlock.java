@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.Properties;
+import typicals.alchemicalexpansion.item.Pill;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTile;
 
 import java.util.Random;
@@ -129,8 +130,10 @@ public class PillFurnaceBlock extends ModBlockTile {
         this.updatingBlock = true;
         if (lit) {
             worldin.setBlockState(pos, ModBlocks.PILL_FURNACE_LIT.getDefaultState().withProperty(Properties.FACING, state.getValue(Properties.FACING)));
+            //AlchemicalExpansion.logger.debug("PillFurnaceBlock changed blockstate at: " + pos.toString() + "to lit");
         } else {
             worldin.setBlockState(pos, ModBlocks.PILL_FURNACE.getDefaultState().withProperty(Properties.FACING, state.getValue(Properties.FACING)));
+            //AlchemicalExpansion.logger.debug("PillFurnaceBlock changed blockstate at: " + pos.toString() + " to default");
         }
         this.updatingBlock = false;
 

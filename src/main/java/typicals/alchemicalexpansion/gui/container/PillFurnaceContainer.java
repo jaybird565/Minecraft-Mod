@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.Array;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTile;
 
 public class PillFurnaceContainer extends BaseContainer {
@@ -46,10 +47,12 @@ public class PillFurnaceContainer extends BaseContainer {
     private int[] fields;
 
     public PillFurnaceContainer(IInventory playerInv, IInventory furnaceInv) {
+        //AlchemicalExpansion.logger.debug("PillFurnaceContainer creation started");
         this.inventory = furnaceInv;
         addSlots(playerInv);
         this.fields = new int[inventory.getFieldCount()];
         this.updateFields();
+        //AlchemicalExpansion.logger.debug("PillFurnaceContainer creation finished");
     }
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
@@ -87,6 +90,7 @@ public class PillFurnaceContainer extends BaseContainer {
     public void addListener(IContainerListener listener) {
         super.addListener(listener);
         listener.sendAllWindowProperties(this, this.inventory);
+        //AlchemicalExpansion.logger.debug("Listener: " + listener.toString() + " added.");
     }
 
     @Override
@@ -101,8 +105,9 @@ public class PillFurnaceContainer extends BaseContainer {
 
             for(int field = 0; field < inventory.getFieldCount(); field++) {
                 if(this.fields[field] != inventory.getField(field)) {
-                    this.fields[field] = inventory.getField(field);
+                    //AlchemicalExpansion.logger.debug("Pill furnace field " + Integer.toString(field) + " updated from: " + Integer.toString(this.fields[field]) + " to: " + Integer.toString(inventory.getField(field)));
                     icontainerlistener.sendWindowProperty(this, field, inventory.getField(field));
+                    this.fields[field] = inventory.getField(field);
                 }
             }
 
@@ -113,6 +118,7 @@ public class PillFurnaceContainer extends BaseContainer {
     private void updateFields() {
         for(int field = 0; field < inventory.getFieldCount(); field++) {
             if(this.fields[field] != inventory.getField(field)) {
+                //AlchemicalExpansion.logger.debug("Pill furnace field " + Integer.toString(field) + " updated from: " + Integer.toString(this.fields[field]) + " to: " + Integer.toString(inventory.getField(field)));
                 this.fields[field] = inventory.getField(field);
             }
         }
