@@ -57,6 +57,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
             int burnTime = ItemUtil.getBurnTime(fuelStack);
             fuelStack.shrink(1);
             this.burnTime += burnTime;
+            this.totalBurnTime = burnTime;
         }
     }
 
@@ -102,7 +103,6 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
     public void update() {
 
         boolean wasBurning = this.isBurning();
-        boolean wasCooking = this.isCooking();
         boolean markDirty = false;
 
         if(wasBurning) {
@@ -128,12 +128,12 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
                 this.cookTime = 0;
             }
 
+            if(wasBurning != this.isBurning()) {
+                this.updateBlockState();
+                markDirty = true;
+            }
         }
 
-        if(wasBurning != this.isBurning()) {
-            this.updateBlockState();
-            markDirty = true;
-        }
 
         if(markDirty) {
             this.markDirty();
@@ -257,9 +257,6 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
 
     @Override
     public void setField(int id, int value) {
-        if(value < 1) {
-            return;
-        }
         switch(id) {
             case 0: burnTime = value; break;
             case 1: totalBurnTime = value; break;

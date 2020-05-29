@@ -18,6 +18,7 @@ public class BaseContainer extends Container {
         return inventory.isUsableByPlayer(playerIn);
     }
 
+
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
         this.inventory.setField(id, data);

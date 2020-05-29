@@ -24,7 +24,6 @@ public abstract class ModTile extends TileEntity {
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-        AlchemicalExpansion.logger.debug("ModTile refreshed from: " + oldState.toString() + " to: " + newState.toString() + " at: " + pos.toString());
         return oldState.getBlock() != newState.getBlock();
     }
 
