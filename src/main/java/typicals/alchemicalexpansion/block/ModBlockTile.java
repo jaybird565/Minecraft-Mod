@@ -2,9 +2,9 @@ package typicals.alchemicalexpansion.block;
 
 import net.minecraft.block.ITileEntityProvider;
 
-public abstract class ModBlockTileEntity extends ModBlock implements ITileEntityProvider {
+public abstract class ModBlockTile extends ModBlock implements ITileEntityProvider {
 
-    public ModBlockTileEntity(String path) {
+    public ModBlockTile(String path) {
         super(path);
     }
 
