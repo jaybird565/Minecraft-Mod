@@ -21,7 +21,7 @@ public class PillFurnaceParser extends RecipeParser{
             recipe.setInputs(inputs);
 
             ItemStack[] outputs = RecipeParser.getItems("output", jsonRecipe);
-            recipe.setOutputs(inputs);
+            recipe.setOutputs(outputs);
 
 
         }
