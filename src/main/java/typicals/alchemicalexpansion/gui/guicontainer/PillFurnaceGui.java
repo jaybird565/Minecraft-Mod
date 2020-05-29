@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.gui.container.PillFurnaceContainer;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTile;
@@ -47,13 +48,25 @@ public class PillFurnaceGui extends GuiContainer {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         PillFurnaceTile furnaceTile = (PillFurnaceTile) this.furnaceInv;
         if(furnaceTile.isBurning()) {
-            int value = (int)(14 * (1 - furnaceTile.percentBurned()));
+            int value = (int)scale(14, 1 - percent(furnaceTile.getField(0), furnaceTile.getField(1)));
             drawTexturedModalRect(guiLeft + 39, guiTop + 68 + value, 176, value, 14, 14 - value);
         }
-        drawTexturedModalRect(guiLeft + 80, guiTop + 30, 176, 14, (int)(24 * furnaceTile.percentCooked()), 17);
+
+        int value = (int) scale(24, percent(furnaceTile.getField(2), furnaceTile.getField(3)));
+
+        drawTexturedModalRect(guiLeft + 80, guiTop + 30, 176, 14, value, 17);
 
 
     }
+
+    public static float percent(int part, int total) {
+        return (float) MathHelper.clamp(((float) part / (float) total), 0.0, 1.0);
+    }
+
+    public static int scale(int scalar, float value) {
+        return (int) (scalar * value);
+    }
+
 
 
 }

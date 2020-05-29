@@ -5,7 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import typicals.alchemicalexpansion.util.BlockUtil;
+import typicals.alchemicalexpansion.util.NBTUtil.NBT_TYPES;
 
 import java.util.Arrays;
 
@@ -48,14 +50,32 @@ public abstract class InventoryTile extends ModTile implements IInventory{
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        //TODO
+        Arrays.fill(itemStacks, ItemStack.EMPTY);
+        NBTTagList slotData = compound.getTagList("Items", NBT_TYPES.COMPOUND.id());
+
+        for(int i = 0; i < slotData.tagCount(); i++) {
+            NBTTagCompound slot = slotData.getCompoundTagAt(i);
+            byte slotIndex = slot.getByte("Slot");
+            if((slotIndex >= 0) && (slotIndex < this.itemStacks.length)) {
+                this.itemStacks[slotIndex] = new ItemStack(slot);
+            }
+        }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        //TODO
-        return null;
+        NBTTagList slotData = new NBTTagList();
+        for(int i = 0; i < this.getSizeInventory(); i++) {
+            if(!this.itemStacks[i].isEmpty()) {
+                NBTTagCompound slot = new NBTTagCompound();
+                slot.setByte("Slot", (byte) i);
+                this.itemStacks[i].writeToNBT(slot);
+                slotData.appendTag(slot);
+            }
+        }
+        compound.setTag("Items", slotData);
+        return compound;
     }
 
 

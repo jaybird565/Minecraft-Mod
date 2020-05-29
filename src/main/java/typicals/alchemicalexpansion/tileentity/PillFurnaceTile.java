@@ -4,17 +4,18 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IInteractionObject;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlocks;
 import typicals.alchemicalexpansion.block.PillFurnaceBlock;
 import typicals.alchemicalexpansion.gui.container.PillFurnaceContainer;
 import typicals.alchemicalexpansion.item.ModItems;
+
 
 public class PillFurnaceTile extends InventoryTile implements ITickable, IInteractionObject {
 
@@ -46,11 +47,11 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
     }
 
     public float percentCooked() {
-        return ((float) cookTime) / ((float) totalCookTime);
+        return (float) MathHelper.clamp((((float) cookTime) / ((float) totalCookTime)), 0.0, 1.0);
     }
 
     public float percentBurned() {
-        return ((float) burnTime) / ((float) totalBurnTime);
+        return (float) MathHelper.clamp(((float) burnTime) / ((float) totalBurnTime),0.0,1.0);
     }
 
     public PillFurnaceTile() {
@@ -75,23 +76,45 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
         }
     }
 
+
     @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound compound = super.getUpdateTag();
-        compound.setInteger("burnTime", this.burnTime);
-        compound.setInteger("totalBurnTime", this.totalBurnTime);
-        compound.setInteger("cookTime", this.cookTime);
-        compound.setInteger("totalCookTime", this.totalCookTime);
-        return compound;
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+
+        this.readCookTime(compound)
+                .readTotalCookTime(compound)
+                .readBurnTime(compound)
+                .readTotalBurnTime(compound);
+
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        NBTTagCompound data = super.writeToNBT(compound);
+
+        this.writeBurnTime(data)
+                .writeTotalBurnTime(data)
+                .writeCookTime(data)
+                .writeTotalCookTime(data);
+
+        return data;
+
     }
 
     @Override
     public void handleUpdateTag(NBTTagCompound tag) {
         super.handleUpdateTag(tag);
-        this.burnTime = tag.getInteger("burnTime");
-        this.cookTime = tag.getInteger("cookTime");
-        this.totalBurnTime = tag.getInteger("totalBurnTime");
-        this.totalCookTime = tag.getInteger("totalCookTime");
+        this.readBurnTime(tag).readCookTime(tag).readTotalBurnTime(tag).readTotalCookTime(tag);
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.writeBurnTime(compound)
+                .writeCookTime(compound)
+                .writeTotalBurnTime(compound)
+                .writeTotalCookTime(compound);
+        return compound;
     }
 
     @Override
@@ -158,11 +181,12 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
                 //this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.totalCookTime);
             }
 
-            if (isBurning != this.isBurning())
-            {
-                markDirty = true;
-                this.updateBlockState();
-            }
+        }
+
+        if (isBurning != this.isBurning())
+        {
+            markDirty = true;
+            this.updateBlockState();
         }
 
         if (markDirty)
@@ -194,6 +218,10 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
 
     public boolean isBurning() {
         return this.burnTime > 0;
+    }
+
+    public boolean isCooking() {
+        return this.cookTime > 0;
     }
 
     public void updateBlockState() {
@@ -233,6 +261,45 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
     {
         return new PillFurnaceContainer(playerInventory, this);
+    }
+
+    public PillFurnaceTile writeBurnTime(NBTTagCompound compound) {
+        compound.setInteger("burnTime", this.getBurnTime());
+        return this;
+    }
+
+    public PillFurnaceTile readBurnTime(NBTTagCompound compound) {
+        this.burnTime = compound.getInteger("burnTime");
+        return this;
+    }
+
+    public PillFurnaceTile writeCookTime(NBTTagCompound compound) {
+        compound.setInteger("cookTime", this.getCookTime());
+        return this;
+    }
+
+    public PillFurnaceTile readCookTime(NBTTagCompound compound) {
+        this.cookTime = compound.getInteger("cookTime");
+        return this;
+    }
+
+    public PillFurnaceTile writeTotalBurnTime(NBTTagCompound compound) {
+        compound.setInteger("totalBurnTime", this.getTotalBurnTime());
+        return this;
+    }
+    public PillFurnaceTile readTotalBurnTime(NBTTagCompound compound) {
+        this.totalBurnTime = compound.getInteger("totalBurnTime");
+        return this;
+    }
+
+    public PillFurnaceTile writeTotalCookTime(NBTTagCompound compound) {
+        compound.setInteger("totalCookTime", this.getTotalCookTime());
+        return this;
+    }
+
+    public PillFurnaceTile readTotalCookTime(NBTTagCompound compound) {
+        this.totalCookTime = compound.getInteger("totalCookTime");
+        return this;
     }
 
     @Override
