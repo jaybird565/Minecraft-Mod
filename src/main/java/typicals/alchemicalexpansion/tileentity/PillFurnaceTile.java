@@ -36,7 +36,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
 
     public boolean canCook() {
         ItemStack result = Recipes.pillFurnaceResult(this.getReagents());
-        return !result.isEmpty() && (this.getResultStack().isItemEqual(result) || this.getResultStack().isEmpty());
+        return !result.isEmpty() && (this.getResultStack().isItemEqual(result) || this.getResultStack().isEmpty()) && (this.getResultStack().getCount() < this.getResultStack().getMaxStackSize());
     }
 
     protected ItemStack getFuelStack() {
