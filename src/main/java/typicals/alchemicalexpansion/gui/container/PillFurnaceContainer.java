@@ -100,7 +100,7 @@ public class PillFurnaceContainer extends BaseContainer {
             IContainerListener icontainerlistener = this.listeners.get(i);
 
             for(int field = 0; field < inventory.getFieldCount(); field++) {
-                if(this.fields[field] != inventory.getFieldCount()) {
+                if(this.fields[field] != inventory.getField(field)) {
                     this.fields[field] = inventory.getField(field);
                     icontainerlistener.sendWindowProperty(this, field, inventory.getField(field));
                 }
@@ -112,7 +112,7 @@ public class PillFurnaceContainer extends BaseContainer {
 
     private void updateFields() {
         for(int field = 0; field < inventory.getFieldCount(); field++) {
-            if(this.fields[field] != inventory.getFieldCount()) {
+            if(this.fields[field] != inventory.getField(field)) {
                 this.fields[field] = inventory.getField(field);
             }
         }

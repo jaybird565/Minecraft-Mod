@@ -33,7 +33,6 @@ public abstract class InventoryTile extends ModTile implements IInventory{
         return this.getSizeInventory();
     }
 
-    public abstract boolean isStorage(int slot, ItemStack stack);
 
     public ItemStack[] getStacksInSlots(int[] slots) {
         ItemStack[] stacks = new ItemStack[slots.length];
@@ -161,10 +160,6 @@ public abstract class InventoryTile extends ModTile implements IInventory{
         //do nothing by default
     }
 
-    @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return isStorage(index, stack);
-    }
 
 
     @Override

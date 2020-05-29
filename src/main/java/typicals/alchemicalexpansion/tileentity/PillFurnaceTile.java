@@ -7,6 +7,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IInteractionObject;
@@ -54,67 +56,106 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
         return (float) MathHelper.clamp(((float) burnTime) / ((float) totalBurnTime),0.0,1.0);
     }
 
+    public void cookItem(){
+
+        if (this.canCook()) {
+            //TODO change pill stats/ result based on ingredients
+            this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, new ItemStack(ModItems.PILL));
+        }
+    }
+
+    public int getBurnTime(Item fuel) {
+        //TODO get item burn time
+        return 200;
+    }
+
+
+    public boolean canCook() {
+        //TODO check if valid recipe
+        return true;
+    }
+
+    public boolean isBurning() {
+        return this.burnTime > 0;
+    }
+
+    public boolean isCooking() {
+        return this.cookTime > 0;
+    }
+
+    public void updateBlockState() {
+        if(this.getContainingBlock() instanceof PillFurnaceBlock) {
+            PillFurnaceBlock block = (PillFurnaceBlock) this.getContainingBlock();
+            block.updatePillFurnaceState(this.isBurning(), this.world, this.getPos());
+        }
+    }
     public PillFurnaceTile() {
         super(SIZE);
     }
 
+    @Override
+    public String getGuiID() {
+        return AlchemicalExpansion.MODID + ":" + PillFurnaceBlock.pathOff + "_tile_entity";
+    }
     @Override
     public Block[] validBlocks() {
         return validBlocks;
     }
 
     @Override
-    public boolean isStorage(int slot, ItemStack stack) {
-        if((slot >= 0 ) && (slot < 9)) {
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        if((index >= 0 ) && (index < 9)) {
             return true;
-        }else if (slot == 9) {
+        }else if (index == 9) {
             return true;
-        } else if (slot == 10) {
+        } else if (index == 10) {
             return false;
         } else {
             return false;
         }
     }
 
-
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-
         this.readCookTime(compound)
                 .readTotalCookTime(compound)
                 .readBurnTime(compound)
                 .readTotalBurnTime(compound);
-
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         NBTTagCompound data = super.writeToNBT(compound);
-
         this.writeBurnTime(data)
                 .writeTotalBurnTime(data)
                 .writeCookTime(data)
                 .writeTotalCookTime(data);
-
         return data;
-
     }
 
     @Override
     public void handleUpdateTag(NBTTagCompound tag) {
         super.handleUpdateTag(tag);
-        this.readBurnTime(tag).readCookTime(tag).readTotalBurnTime(tag).readTotalCookTime(tag);
+        this.readFromNBT(tag);
     }
 
     @Override
     public NBTTagCompound getUpdateTag() {
         NBTTagCompound compound = super.getUpdateTag();
-        this.writeBurnTime(compound)
-                .writeCookTime(compound)
-                .writeTotalBurnTime(compound)
-                .writeTotalCookTime(compound);
-        return compound;
+        return this.writeToNBT(compound);
+    }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound tag = getUpdateTag();
+        final int METADATA = 0;
+        return new SPacketUpdateTileEntity(this.pos, METADATA, tag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        NBTTagCompound updateTagDescribingTileEntityState = pkt.getNbtCompound();
+        handleUpdateTag(updateTagDescribingTileEntityState);
     }
 
     @Override
@@ -197,39 +238,6 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
 
     }
 
-    public void cookItem(){
-
-        if (this.canCook()) {
-            //TODO change pill stats/ result based on ingredients
-            this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, new ItemStack(ModItems.PILL));
-        }
-    }
-
-    public int getBurnTime(Item fuel) {
-        //TODO get item burn time
-        return 200;
-    }
-
-
-    public boolean canCook() {
-        //TODO check if valid recipe
-        return true;
-    }
-
-    public boolean isBurning() {
-        return this.burnTime > 0;
-    }
-
-    public boolean isCooking() {
-        return this.cookTime > 0;
-    }
-
-    public void updateBlockState() {
-        if(this.getContainingBlock() instanceof PillFurnaceBlock) {
-            PillFurnaceBlock block = (PillFurnaceBlock) this.getContainingBlock();
-            block.updatePillFurnaceState(this.isBurning(), this.world, this.getPos());
-        }
-    }
 
     @Override
     public int getField(int id) {
@@ -302,8 +310,4 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
         return this;
     }
 
-    @Override
-    public String getGuiID() {
-        return AlchemicalExpansion.MODID + ":" + PillFurnaceBlock.pathOff;
-    }
 }

@@ -15,19 +15,23 @@ public class PillFurnaceGui extends GuiContainer {
     public static final int WIDTH = 176;
     public static final int HEIGHT = 195;
 
-    private IInventory furnaceInv;
+    private PillFurnaceTile furnaceInv;
     private InventoryPlayer playerInv;
 
     private static final ResourceLocation background = new ResourceLocation(AlchemicalExpansion.MODID, "textures/gui/pill_furnace_basic_gui.png");
 
     public PillFurnaceGui(InventoryPlayer playerInv, IInventory furnaceInv) {
         super(new PillFurnaceContainer(playerInv, furnaceInv));
-        this.furnaceInv = furnaceInv;
+        this.furnaceInv = (PillFurnaceTile) furnaceInv;
         this.playerInv = playerInv;
         this.xSize = WIDTH;
         this.ySize = HEIGHT;
     }
 
+    @Override
+    public void updateScreen() {
+        super.updateScreen();
+    }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -46,14 +50,12 @@ public class PillFurnaceGui extends GuiContainer {
         //initialized in GuiContainer.this.initGui()
         //draws the background image from 0,0 to xSize, ySize on screen starting at guiLeft, guiTop
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        PillFurnaceTile furnaceTile = (PillFurnaceTile) this.furnaceInv;
-        if(furnaceTile.isBurning()) {
-            int value = (int)scale(14, 1 - percent(furnaceTile.getField(0), furnaceTile.getField(1)));
-            drawTexturedModalRect(guiLeft + 39, guiTop + 68 + value, 176, value, 14, 14 - value);
-        }
+        PillFurnaceTile furnaceTile = this.furnaceInv;
 
-        int value = (int) scale(24, percent(furnaceTile.getField(2), furnaceTile.getField(3)));
+        int value = (int)scale(14, 1 - percent(furnaceTile.getField(0), furnaceTile.getField(1)));
+        drawTexturedModalRect(guiLeft + 39, guiTop + 68 + value, 176, value, 14, 14 - value);
 
+        value = (int) scale(24, percent(furnaceTile.getField(2), furnaceTile.getField(3)));
         drawTexturedModalRect(guiLeft + 80, guiTop + 30, 176, 14, value, 17);
 
 

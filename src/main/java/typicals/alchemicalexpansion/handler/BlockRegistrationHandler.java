@@ -27,7 +27,7 @@ public class BlockRegistrationHandler extends EventHandler {
     }
 
     public static void registerTileEntities() {
-        GameRegistry.registerTileEntity(PillFurnaceTile.class, RegistryUtil.resourceLocation("pill_furnace"));
+        GameRegistry.registerTileEntity(PillFurnaceTile.class, RegistryUtil.resourceLocation(PillFurnaceBlock.pathOff + "_tile_entity"));
     }
 
     private static void registerBlocks(IForgeRegistry<Block> registry) {
