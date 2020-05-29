@@ -4,37 +4,29 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
-
 import java.util.Map;
 
-public class PillFurnaceParser{
+public class PillFurnaceParser extends RecipeParser{
 
-    public static boolean parseJson (JsonElement json){
-        json.getAsJsonArray();
-        //TODO port the below code over to RecipeParser to do this automatically based on recipe json object
-        for(JsonElement obj : json.getAsJsonArray()){
-            JsonObject type = obj.getAsJsonObject();
-            JsonArray inputs = type.get("inputs").getAsJsonArray();
-
+    //reads the given contents of the JsonElement
+    public static boolean parseJson(JsonElement json){
+        //TODO turn this into a try catch
+        for(JsonElement jsonRecipe : json.getAsJsonArray()){
             PillFurnaceRecipe recipe = new PillFurnaceRecipe();
-            Item[] items = new Item[inputs.size()];
 
-            for(int i = 0; i < inputs.size(); i++){
-                items[i] = itemFromString(inputs.get(i).getAsString());
-            }
+            //Adds all items under the input tag to a array of inputs
+            ItemStack[] inputs = RecipeParser.getItems("input", jsonRecipe);
+            recipe.setInputs(inputs);
 
-            recipe.inputs = items;
-
+            ItemStack[] outputs = RecipeParser.getItems("output", jsonRecipe);
+            recipe.setOutputs(inputs);
 
 
         }
         return true;
     }
 
-    public static Item itemFromString (String item){
-        //TODO
-        return null;
-    }
 
 }
