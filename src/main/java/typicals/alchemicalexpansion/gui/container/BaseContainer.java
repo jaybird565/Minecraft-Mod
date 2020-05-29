@@ -2,17 +2,18 @@ package typicals.alchemicalexpansion.gui.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import typicals.alchemicalexpansion.tileentity.InventoryTileEntity;
+import typicals.alchemicalexpansion.tileentity.InventoryTile;
 
-public class ModContainer extends Container {
+public class BaseContainer extends Container {
 
-    protected InventoryTileEntity tileEntity;
+    protected IInventory inventory;
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return tileEntity.canInteractWith(playerIn);
+        return inventory.isUsableByPlayer(playerIn);
     }
 
     @Override
@@ -24,7 +25,7 @@ public class ModContainer extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index < this.tileEntity.size()) {
+            if (index < this.inventory.getSizeInventory()) {
                 if (!this.mergeItemStack(itemstack1, 11, this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
@@ -40,5 +41,9 @@ public class ModContainer extends Container {
         }
 
         return itemstack;
+    }
+
+    public IInventory getTileEntity() {
+        return this.inventory;
     }
 }

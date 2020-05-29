@@ -17,12 +17,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.Properties;
-import typicals.alchemicalexpansion.tileentity.PillFurnaceTileEntity;
+import typicals.alchemicalexpansion.tileentity.PillFurnaceTile;
 
-import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class PillFurnace extends ModBlockTileEntity {
+public class PillFurnaceBlock extends ModBlockTile {
 
     public static final int GUI_ID = 1;
 
@@ -33,7 +32,7 @@ public class PillFurnace extends ModBlockTileEntity {
 
     private boolean lit;
 
-    public PillFurnace(boolean lit) {
+    public PillFurnaceBlock(boolean lit) {
         super(pathOff);
         if (lit) {
             this.path = pathOn;
@@ -57,7 +56,7 @@ public class PillFurnace extends ModBlockTileEntity {
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new PillFurnaceTileEntity();
+        return new PillFurnaceTile();
     }
 
     @Override
@@ -67,7 +66,7 @@ public class PillFurnace extends ModBlockTileEntity {
             return true;
         }
         TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if (!(tileEntity instanceof PillFurnaceTileEntity)) {
+        if (!(tileEntity instanceof PillFurnaceTile)) {
             return false;
         }
         playerIn.openGui(AlchemicalExpansion.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
@@ -115,7 +114,7 @@ public class PillFurnace extends ModBlockTileEntity {
 
         TileEntity tileEntity = world.getTileEntity(pos);
 
-        if(tileEntity instanceof PillFurnaceTileEntity) {
+        if(tileEntity instanceof PillFurnaceTile) {
             InventoryHelper.dropInventoryItems(world, pos, (IInventory) tileEntity);
         }
 
