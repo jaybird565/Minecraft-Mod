@@ -74,12 +74,9 @@ public class ContentParser {
 
 
     public static boolean parseEntry(Map.Entry<String, JsonElement> entry) {
-        //TODO parse an entry in jay's custom content file(s)
-        if(entry.getKey() == "pillfurnace"){
-            PillFurnaceParser.parseJson(entry.getValue());
-        } else {
-            return false;
+        switch(entry.getKey()) {
+            case "pillfurnace": return PillFurnaceParser.parseJson(entry.getValue());
+            default: return false;
         }
-        return true;
     }
 }

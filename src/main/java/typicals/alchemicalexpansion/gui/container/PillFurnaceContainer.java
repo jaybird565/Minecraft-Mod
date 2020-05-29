@@ -43,11 +43,14 @@ public class PillFurnaceContainer extends BaseContainer {
         return totalCookTime;
     }
 
+    private int[] fields;
+
     public PillFurnaceContainer(IInventory playerInv, IInventory furnaceInv) {
         this.inventory = furnaceInv;
         addSlots(playerInv);
+        this.fields = new int[inventory.getFieldCount()];
+        this.updateFields();
     }
-
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
         this.inventory.setField(id, data);
@@ -91,37 +94,28 @@ public class PillFurnaceContainer extends BaseContainer {
     {
         super.detectAndSendChanges();
 
-        PillFurnaceTile inventory = (PillFurnaceTile) this.inventory;
 
         for (int i = 0; i < this.listeners.size(); ++i)
         {
             IContainerListener icontainerlistener = this.listeners.get(i);
 
-            if (this.cookTime != inventory.getCookTime())
-            {
-                this.cookTime = inventory.getCookTime();
-                icontainerlistener.sendWindowProperty(this, 2, this.cookTime);
+            for(int field = 0; field < inventory.getFieldCount(); field++) {
+                if(this.fields[field] != inventory.getFieldCount()) {
+                    this.fields[field] = inventory.getField(field);
+                    icontainerlistener.sendWindowProperty(this, field, inventory.getField(field));
+                }
             }
 
-            if (this.totalCookTime != inventory.getTotalCookTime())
-            {
-                this.totalCookTime = inventory.getTotalCookTime();
-                icontainerlistener.sendWindowProperty(this, 0, this.totalCookTime);
-            }
-
-            if (this.burnTime != inventory.getBurnTime())
-            {
-                this.burnTime = inventory.getBurnTime();
-                icontainerlistener.sendWindowProperty(this, 1, this.burnTime);
-            }
-
-            if (this.totalBurnTime != inventory.getTotalBurnTime())
-            {
-                this.totalBurnTime = inventory.getTotalBurnTime();
-                icontainerlistener.sendWindowProperty(this, 3, this.totalBurnTime);
-            }
         }
 
+    }
+
+    private void updateFields() {
+        for(int field = 0; field < inventory.getFieldCount(); field++) {
+            if(this.fields[field] != inventory.getFieldCount()) {
+                this.fields[field] = inventory.getField(field);
+            }
+        }
     }
 
 }

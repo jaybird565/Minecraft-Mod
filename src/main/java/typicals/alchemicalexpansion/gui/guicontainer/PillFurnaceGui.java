@@ -47,9 +47,10 @@ public class PillFurnaceGui extends GuiContainer {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         PillFurnaceTile furnaceTile = (PillFurnaceTile) this.furnaceInv;
         if(furnaceTile.isBurning()) {
-            drawTexturedModalRect(guiLeft + 39, guiTop + 68, 176, (int)(14 * (1 - furnaceTile.percentBurned())), 189, 14);
+            int value = (int)(14 * (1 - furnaceTile.percentBurned()));
+            drawTexturedModalRect(guiLeft + 39, guiTop + 68 + value, 176, value, 14, 14 - value);
         }
-        drawTexturedModalRect(guiLeft + 79, guiTop + 29, 176, 15, 176 + (int)(24 * furnaceTile.percentCooked()), 31);
+        drawTexturedModalRect(guiLeft + 80, guiTop + 30, 176, 14, (int)(24 * furnaceTile.percentCooked()), 17);
 
 
     }
