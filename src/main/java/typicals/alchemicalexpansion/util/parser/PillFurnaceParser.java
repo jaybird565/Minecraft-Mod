@@ -8,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 import java.util.Map;
 
+import static typicals.alchemicalexpansion.recipes.Recipes.pillFurnaceRecipes;
+
 public class PillFurnaceParser extends RecipeParser{
 
     //reads the given contents of the JsonElement
@@ -23,6 +25,7 @@ public class PillFurnaceParser extends RecipeParser{
             ItemStack[] outputs = RecipeParser.getItems("output", jsonRecipe);
             recipe.setOutputs(outputs);
 
+            pillFurnaceRecipes.add(recipe);
 
         }
         return true;
