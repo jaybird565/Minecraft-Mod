@@ -5,11 +5,12 @@ import net.minecraft.item.ItemStack;
 import typicals.alchemicalexpansion.item.crafting.Machines.MachineRecipe;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipes {
 
-    public static List<PillFurnaceRecipe> pillFurnaceRecipes;
+    public static List<PillFurnaceRecipe> pillFurnaceRecipes = new ArrayList<PillFurnaceRecipe>();
 
     public static PillFurnaceRecipe getRecipeFromInputs(List<ItemStack> inputs) {
         int numberOfInputs;
@@ -33,7 +34,7 @@ public class Recipes {
             }
         }
         //TODO return a new MachineRecipe instance with inputs and outputs unset if there are no recipes that match the inputs
-        return null;
+        return new PillFurnaceRecipe();
     }
 
     public static PillFurnaceRecipe getRecipeFromOutputs(List<ItemStack> outputs) {
@@ -58,6 +59,6 @@ public class Recipes {
             }
         }
         //TODO return a new MachineRecipe instance with inputs and outputs unset if there are no recipes that match the inputs
-        return null;
+        return new PillFurnaceRecipe();
     }
 }

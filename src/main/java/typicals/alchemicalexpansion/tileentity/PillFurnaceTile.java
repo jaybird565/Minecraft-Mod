@@ -63,10 +63,12 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
     }
 
     protected List<ItemStack> getReagents() {
-        List<ItemStack> reagents = new ArrayList<ItemStack>(PillFurnaceContainer.REAGENT_SLOTS.length);
-        int index = 0;
+        List<ItemStack> reagents = new ArrayList<ItemStack>();
         for(int i : PillFurnaceContainer.REAGENT_SLOTS) {
-            reagents.set(index++, this.getStackInSlot(i));
+            ItemStack stack = this.getStackInSlot(i);
+            if(!stack.isEmpty()) {
+                reagents.add(stack);
+            }
         }
         return reagents;
     }
