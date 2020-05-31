@@ -5,6 +5,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.item.crafting.Machines.MachineRecipe;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 
@@ -28,7 +31,8 @@ public class RecipeParser {
     }
 
     public static ItemStack itemFromString (String item){
-        return new ItemStack(Item.getByNameOrId(item));
+        ItemStack stack = new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item)));
+        return stack;
     }
 }
 

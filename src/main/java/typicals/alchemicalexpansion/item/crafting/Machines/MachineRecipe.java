@@ -69,4 +69,19 @@ public class MachineRecipe {
         return outputs;
     }
 
+    @Override
+    public String toString() {
+        String rv = "MachineRecipe with inputs:\n";
+        for(ItemStack input : this.inputs) {
+            rv += input.toString() + "\n";
+        }
+        rv += "outputs:\n";
+        for(ItemStack output : this.outputs) {
+            rv += output.toString() + "\n";
+        }
+
+        return rv;
+
+    }
+
 }

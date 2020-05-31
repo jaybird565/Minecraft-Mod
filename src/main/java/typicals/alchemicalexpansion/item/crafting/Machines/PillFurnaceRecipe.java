@@ -14,20 +14,6 @@ public class PillFurnaceRecipe extends MachineRecipe {
         }
     }
 
-    @Override
-    public String toString() {
-        String rv = "inputs:\n";
-        for(ItemStack input : this.inputs) {
-            rv += input.toString();
-        }
-
-        for(ItemStack output : this.outputs) {
-            rv += output.toString();
-        }
-
-        return rv;
-
-    }
 
 
 }

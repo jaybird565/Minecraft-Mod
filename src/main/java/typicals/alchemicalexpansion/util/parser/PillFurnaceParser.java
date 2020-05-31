@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ public class PillFurnaceParser extends RecipeParser{
 
             ItemStack[] outputs = RecipeParser.getItems("output", jsonRecipe);
             recipe.setOutputs(outputs);
+
 
             pillFurnaceRecipes.add(recipe);
 
