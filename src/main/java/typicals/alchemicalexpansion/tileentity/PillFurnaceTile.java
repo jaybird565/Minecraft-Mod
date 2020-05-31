@@ -15,8 +15,12 @@ import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlocks;
 import typicals.alchemicalexpansion.block.PillFurnaceBlock;
 import typicals.alchemicalexpansion.gui.container.PillFurnaceContainer;
+import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 import typicals.alchemicalexpansion.recipes.Recipes;
 import typicals.alchemicalexpansion.util.ItemUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PillFurnaceTile extends InventoryTile implements ITickable, IInteractionObject {
@@ -61,20 +65,22 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
         }
     }
 
-    protected ItemStack[] getReagents() {
-        ItemStack[] reagents = new ItemStack[PillFurnaceContainer.REAGENT_SLOTS.length];
+    protected List<ItemStack> getReagents() {
+        List<ItemStack> reagents = new ArrayList<ItemStack>(PillFurnaceContainer.REAGENT_SLOTS.length);
         int index = 0;
         for(int i : PillFurnaceContainer.REAGENT_SLOTS) {
-            reagents[index++] = this.getStackInSlot(i);
+            reagents.set(index++, this.getStackInSlot(i));
         }
         return reagents;
     }
 
     protected void cook() {
         //TODO decrease reagents based on recipe
-        ItemStack[] reagents = this.getReagents();
-        ItemStack newResultStack = Recipes.pillFurnaceResult(reagents);
+        List<ItemStack> reagents = this.getReagents();
         ItemStack resultStack = this.getResultStack();
+
+        PillFurnaceRecipe recipe = (PillFurnaceRecipe) Recipes.getRecipeFromInputs(reagents);
+
         if(resultStack.isEmpty()) {
             this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, newResultStack);
         } else if(resultStack.isItemEqual(newResultStack)){
