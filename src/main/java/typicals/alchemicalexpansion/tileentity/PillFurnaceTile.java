@@ -103,50 +103,44 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
 
         if(!this.onClient()) {
 
+            if(currentRecipe == null && !this.getReagents().isEmpty()) {
+                this.currentRecipe = (PillFurnaceRecipe) Recipes.getRecipeFromInputs(this.getReagents());
+            }
+
+            boolean canCook = false;
+
+            if(this.currentRecipe != null && this.currentRecipe.isValid()) {
+                //possibly a slow calculation
+
+                AlchemicalExpansion.logger.debug("Recipe detected, validating recipe: " + this.currentRecipe.toString() + " with contents: " + this.contentString());
+                if((currentRecipe.canCraft(this.getReagents())) &&
+                        (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty()) &&
+                    (this.getResultStack().getCount() + this.currentRecipe.getOutput().getCount() <= this.getResultStack().getMaxStackSize())) {
+                    canCook = true;
+                } else {
+                    this.currentRecipe = null;
+                }
+
+            }
+
             //add more fuel if has fuel and out of burnTime
-            if(!this.isBurning() && this.hasFuel()) {
+            if(canCook && !this.isBurning() && this.hasFuel()) {
                 this.burnFuel();
                 markDirty = true;
             }
 
-            if(this.isBurning()) {
-
-
-                if(currentRecipe == null && !this.getReagents().isEmpty()) {
-                    this.currentRecipe = (PillFurnaceRecipe) Recipes.getRecipeFromInputs(this.getReagents());
-                }
-
-                boolean canCook = false;
-
-                if(this.currentRecipe != null) {
-                    //possibly a slow calculation
-                    if((currentRecipe.canCraft(this.getReagents())) &&
-                            (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty()) &&
-                        (this.getResultStack().getCount() + this.currentRecipe.getOutput().getCount() <= this.getResultStack().getMaxStackSize())) {
-                        canCook = true;
+            if(canCook && this.isBurning()) {
+                this.cookTime++;
+                if(this.cookTime >= this.totalCookTime) {
+                    //add recipe result to result slot
+                    if(this.getResultStack().isEmpty()) {
+                        this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, this.currentRecipe.getOutput());
                     } else {
-                        this.currentRecipe = null;
+                        this.getResultStack().grow(this.currentRecipe.getOutput().getCount());
                     }
 
+                    markDirty = true;
                 }
-
-
-                if(canCook) {
-                    this.cookTime++;
-                    if(this.cookTime >= this.totalCookTime) {
-                        //add recipe result to result slot
-                        if(this.getResultStack().isEmpty()) {
-                            this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, this.currentRecipe.getOutput());
-                        } else {
-                            this.getResultStack().grow(this.currentRecipe.getOutput().getCount());
-                        }
-
-                        markDirty = true;
-                    }
-                } else {
-                    this.cookTime = 0;
-                }
-
             } else {
                 this.cookTime = 0;
             }

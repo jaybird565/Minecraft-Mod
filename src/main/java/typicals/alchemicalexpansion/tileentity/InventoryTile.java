@@ -160,8 +160,6 @@ public abstract class InventoryTile extends ModTile implements IInventory{
         //do nothing by default
     }
 
-
-
     @Override
     public void clear() {
         Arrays.fill(itemStacks, ItemStack.EMPTY);
@@ -175,5 +173,13 @@ public abstract class InventoryTile extends ModTile implements IInventory{
     @Override
     public boolean hasCustomName() {
         return false;
+    }
+
+    public String contentString() {
+        String rv = "";
+        for(ItemStack item : this.itemStacks) {
+            rv += item.toString() + "\n";
+        }
+        return rv;
     }
 }

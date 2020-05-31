@@ -33,6 +33,10 @@ public class MachineRecipe {
 
     }
 
+    public boolean isValid(){
+        return !this.inputs.isEmpty() && !this.outputs.isEmpty();
+    }
+
     public boolean containsInput(ItemStack inputIn) {
         return ItemUtil.containsItemStack(this.inputs, inputIn);
     }
