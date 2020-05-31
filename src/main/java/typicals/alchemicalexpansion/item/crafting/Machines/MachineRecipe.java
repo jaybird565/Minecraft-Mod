@@ -1,6 +1,7 @@
 package typicals.alchemicalexpansion.item.crafting.Machines;
 
 import net.minecraft.item.ItemStack;
+import typicals.alchemicalexpansion.util.ItemUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,29 @@ public class MachineRecipe {
     public MachineRecipe() {
         this.inputs = new ArrayList<ItemStack>();
         this.outputs = new ArrayList<ItemStack>();
+    }
+
+    public boolean canCraft(List<ItemStack> inputsIn) {
+        if(this.inputs.isEmpty() || this.outputs.isEmpty()) {
+            return false;
+        }
+
+        for(ItemStack inputIn : inputsIn) {
+            if(!this.containsInput(inputIn)) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    public boolean containsInput(ItemStack inputIn) {
+        return ItemUtil.containsItemStack(this.inputs, inputIn);
+    }
+
+    public boolean containsOutput(ItemStack outputIn) {
+        return ItemUtil.containsItemStack(this.outputs, outputIn);
     }
 
     public void setInputs(List<ItemStack> inputs) {

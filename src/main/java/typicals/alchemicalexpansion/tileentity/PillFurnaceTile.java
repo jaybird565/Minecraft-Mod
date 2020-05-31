@@ -31,17 +31,14 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
     private int cookTime = 0;
     private int totalCookTime = 200; //200 ticks to smelt something by default
 
+    private PillFurnaceRecipe currentRecipe = null;
+
     public static final Block[] validBlocks = {ModBlocks.PILL_FURNACE_LIT, ModBlocks.PILL_FURNACE};
 
     public PillFurnaceTile() {
         super(SIZE);
     }
 
-
-    public boolean canCook() {
-        ItemStack result = Recipes.pillFurnaceResult(this.getReagents());
-        return !result.isEmpty() && (this.getResultStack().isItemEqual(result) || this.getResultStack().isEmpty()) && (this.getResultStack().getCount() < this.getResultStack().getMaxStackSize());
-    }
 
     protected ItemStack getFuelStack() {
         return this.getStackInSlot(PillFurnaceContainer.FUEL_SLOT);
@@ -74,20 +71,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
         return reagents;
     }
 
-    protected void cook() {
-        //TODO decrease reagents based on recipe
-        List<ItemStack> reagents = this.getReagents();
-        ItemStack resultStack = this.getResultStack();
 
-        PillFurnaceRecipe recipe = (PillFurnaceRecipe) Recipes.getRecipeFromInputs(reagents);
-
-        if(resultStack.isEmpty()) {
-            this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, newResultStack);
-        } else if(resultStack.isItemEqual(newResultStack)){
-            resultStack.grow(newResultStack.getCount());
-        }
-        cookTime = 0;
-    }
 
     public boolean isBurning() {
         return this.burnTime > 0;
@@ -123,24 +107,56 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
                 markDirty = true;
             }
 
-            //cook item
-            if(this.isBurning() && this.canCook()) {
-                this.cookTime++;
-                if(this.cookTime >= this.totalCookTime) {
-                    this.cook();
-                    markDirty = true;
+            if(this.isBurning()) {
+
+
+                if(currentRecipe == null && !this.getReagents().isEmpty()) {
+                    this.currentRecipe = (PillFurnaceRecipe) Recipes.getRecipeFromInputs(this.getReagents());
                 }
+
+                boolean canCook = false;
+
+                if(this.currentRecipe != null) {
+                    //possibly a slow calculation
+                    if((currentRecipe.canCraft(this.getReagents())) &&
+                            (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty()) &&
+                        (this.getResultStack().getCount() + this.currentRecipe.getOutput().getCount() <= this.getResultStack().getMaxStackSize())) {
+                        canCook = true;
+                    } else {
+                        this.currentRecipe = null;
+                    }
+
+                }
+
+
+                if(canCook) {
+                    this.cookTime++;
+                    if(this.cookTime >= this.totalCookTime) {
+                        //add recipe result to result slot
+                        if(this.getResultStack().isEmpty()) {
+                            this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, this.currentRecipe.getOutput());
+                        } else {
+                            this.getResultStack().grow(this.currentRecipe.getOutput().getCount());
+                        }
+
+                        markDirty = true;
+                    }
+                } else {
+                    this.cookTime = 0;
+                }
+
             } else {
                 this.cookTime = 0;
             }
 
+            //update block state if changed
             if(wasBurning != this.isBurning()) {
                 this.updateBlockState();
                 markDirty = true;
             }
         }
 
-
+        //mark dirty if needed
         if(markDirty) {
             this.markDirty();
         }
@@ -276,7 +292,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
         return 4;
     }
 
-
+    //nbt getter and setter util
     public PillFurnaceTile writeBurnTime(NBTTagCompound compound) {
         compound.setInteger("burnTime", this.getBurnTime());
         return this;

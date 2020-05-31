@@ -14,6 +14,8 @@ public class PillFurnaceRecipe extends MachineRecipe {
         }
     }
 
+
+
 }
 
 
