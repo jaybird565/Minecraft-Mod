@@ -11,12 +11,14 @@ public class Recipes {
 
     public static List<PillFurnaceRecipe> pillFurnaceRecipes;
 
-    public static MachineRecipe getRecipeFromInputs(List<ItemStack> inputs) {
-        //TODO
+    public static PillFurnaceRecipe getRecipeFromInputs(List<ItemStack> inputs) {
+        for(int i = 0; i < pillFurnaceRecipes.size(); i++){
+            
+        }
         return null;
     }
 
-    public static MachineRecipe getRecipeFromOutputs(List<ItemStack> outputs) {
+    public static PillFurnaceRecipe getRecipeFromOutputs(List<ItemStack> outputs) {
         //TODO
         return null;
     }
