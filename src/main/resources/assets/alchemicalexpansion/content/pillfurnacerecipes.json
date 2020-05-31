@@ -1,0 +1,20 @@
+{
+  "pillfurnace": [
+    {
+      "input": [
+        "minecraft:wheat",
+        "minecraft:wheat",
+        "minecraft:wheat",
+        "minecraft:wheat",
+        "minecraft:wheat",
+        "minecraft:wheat",
+        "minecraft:wheat",
+        "minecraft:wheat",
+        "minecraft:wheat"
+      ],
+      "output": [
+          "alchemicalexpansion:pill"
+      ]
+    }
+  ]
+}
