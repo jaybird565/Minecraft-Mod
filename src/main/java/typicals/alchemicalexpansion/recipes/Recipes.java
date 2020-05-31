@@ -2,8 +2,10 @@ package typicals.alchemicalexpansion.recipes;
 
 
 import net.minecraft.item.ItemStack;
+import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.item.crafting.Machines.MachineRecipe;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
+import typicals.alchemicalexpansion.util.ItemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +15,10 @@ public class Recipes {
     public static List<PillFurnaceRecipe> pillFurnaceRecipes = new ArrayList<PillFurnaceRecipe>();
 
     public static PillFurnaceRecipe getRecipeFromInputs(List<ItemStack> inputs) {
-        int numberOfInputs;
+        AlchemicalExpansion.logger.debug("Recipe from inputs requested finding recipe with inputs: " + ItemUtil.stackListToString(inputs));
+        int numberOfInputs = inputs.size();
         //Index pillFurnaceRecipes and compare all of its inputs to the supplied
         for (int i = 0; i < pillFurnaceRecipes.size(); i++) {
-            numberOfInputs = inputs.size();
             List<ItemStack> pillFurnaceInputList = pillFurnaceRecipes.get(i).getInputs();
             if (pillFurnaceInputList.size() == inputs.size()) {
                 for (int j = 0; j < pillFurnaceInputList.size(); j++) {
@@ -33,11 +35,13 @@ public class Recipes {
                 }
             }
         }
+        AlchemicalExpansion.logger.debug("Recipe not found...");
         //TODO return a new MachineRecipe instance with inputs and outputs unset if there are no recipes that match the inputs
         return new PillFurnaceRecipe();
     }
 
     public static PillFurnaceRecipe getRecipeFromOutputs(List<ItemStack> outputs) {
+        AlchemicalExpansion.logger.debug("Recipe from outputs requested finding recipe with outputs: " + ItemUtil.stackListToString(outputs));
         int numberOfOutputs;
         //Index pillFurnaceRecipes and compare all of its inputs to the supplied
         for (int i = 0; i < pillFurnaceRecipes.size(); i++) {
@@ -58,7 +62,10 @@ public class Recipes {
                 }
             }
         }
+        AlchemicalExpansion.logger.debug("Recipe not found...");
         //TODO return a new MachineRecipe instance with inputs and outputs unset if there are no recipes that match the inputs
         return new PillFurnaceRecipe();
     }
+
+
 }

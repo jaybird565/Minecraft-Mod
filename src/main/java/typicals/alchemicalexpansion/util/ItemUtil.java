@@ -111,5 +111,16 @@ public class ItemUtil {
 
     }
 
+    public static String stackListToString(List<ItemStack> stacks) {
+        final String delim = "\n";
+        String rv = "";
+
+
+        for(ItemStack stack : stacks) {
+            rv += stack.toString() + delim;
+        }
+
+        return rv;
+    }
 }
 
