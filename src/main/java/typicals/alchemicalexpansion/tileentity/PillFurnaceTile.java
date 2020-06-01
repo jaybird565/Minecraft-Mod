@@ -18,6 +18,7 @@ import typicals.alchemicalexpansion.gui.container.PillFurnaceContainer;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 import typicals.alchemicalexpansion.recipes.Recipes;
 import typicals.alchemicalexpansion.util.ItemUtil;
+import typicals.alchemicalexpansion.util.LoggerUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -132,21 +133,26 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
             if(canCook && this.isBurning()) {
                 this.cookTime++;
                 if(this.cookTime >= this.totalCookTime) {
+                    LoggerUtil.dev("Crafting of PillFurnaceRecipe:\n" + this.currentRecipe.toString() + "with reagents:\n" + ItemUtil.stackListToString(this.getReagents()) + " started.");
                     //add recipe result to result slot
-                    if(this.getResultStack().isEmpty()) {
-                        this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, this.currentRecipe.getOutput());
-                    } else {
-                        this.getResultStack().grow(this.currentRecipe.getOutput().getCount());
+                    ItemStack resultStack = this.getResultStack();
+                    ItemStack outputStack = this.currentRecipe.getOutput();
+
+                    if(resultStack.isEmpty()) {
+                        this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, outputStack);
+                    } else if(resultStack.isItemEqual(outputStack)){
+                        int outputStackCount = outputStack.getCount();
+                        LoggerUtil.dev("Growing ItemStack: " + this.getResultStack().toString() + " by: " + outputStackCount);
+                        this.getResultStack().grow(outputStackCount);
                     }
 
                     //remove items from reagent/input slots
                     List<ItemStack> reagentStacks = Arrays.asList(this.getStacksInSlots(PillFurnaceContainer.REAGENT_SLOTS));
                     for(ItemStack input : this.currentRecipe.getInputs() ) {
                         if(!ItemUtil.decreaseItemStack(reagentStacks, input)) {
-                            AlchemicalExpansion.logger.error("the recipe in a pill furnace changed while crafting, this shouldn't happen...");
+                            LoggerUtil.error("The recipe in PillFurnaceTile: " + this.toString() + "changed while crafting, this shouldn't happen...");
                         }
                     }
-
 
 
                     this.cookTime = 0;

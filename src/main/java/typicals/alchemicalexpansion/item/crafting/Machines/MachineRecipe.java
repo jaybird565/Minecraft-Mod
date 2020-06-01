@@ -2,6 +2,7 @@ package typicals.alchemicalexpansion.item.crafting.Machines;
 
 import net.minecraft.item.ItemStack;
 import typicals.alchemicalexpansion.util.ItemUtil;
+import typicals.alchemicalexpansion.util.LoggerUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,12 +20,15 @@ public class MachineRecipe {
     }
 
     public boolean canCraft(List<ItemStack> inputsIn) {
+        LoggerUtil.dev("Validating that recipe:\n" + this.toString() + " works with inputs:\n" + ItemUtil.stackListToString(inputsIn) );
         if(this.inputs.isEmpty() || this.outputs.isEmpty()) {
+            LoggerUtil.dev("Recipe is invalid since it's inputs or outputs are empty...");
             return false;
         }
 
         for(ItemStack input : this.inputs) {
             if(!ItemUtil.removeItemStack(inputsIn, input)) {
+                LoggerUtil.dev("Recipe does not work with inputs:\n" + ItemUtil.stackListToString(inputsIn) + " since input: " + input.toString() + " is not an input for this recipe.");
                 return false;
             }
         }
@@ -73,7 +77,7 @@ public class MachineRecipe {
         for(ItemStack input : this.inputs) {
             rv += input.toString() + "\n";
         }
-        rv += "outputs:\n";
+        rv += "and outputs:\n";
         for(ItemStack output : this.outputs) {
             rv += output.toString() + "\n";
         }

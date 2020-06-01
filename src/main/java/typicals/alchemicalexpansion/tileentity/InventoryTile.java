@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import typicals.alchemicalexpansion.util.BlockUtil;
+import typicals.alchemicalexpansion.util.ItemUtil;
 import typicals.alchemicalexpansion.util.NBTUtil.NBT_TYPES;
 
 import java.util.Arrays;
@@ -175,11 +176,14 @@ public abstract class InventoryTile extends ModTile implements IInventory{
         return false;
     }
 
-    public String contentString() {
-        String rv = "";
-        for(ItemStack item : this.itemStacks) {
-            rv += item.toString() + "\n";
-        }
+
+    @Override
+    public String toString() {
+        String rv = "InventoryTile with contents:\n";
+        rv += ItemUtil.stackArrayToString(this.itemStacks);
+        rv += "In world: " + this.world.toString();
+        rv += "At position: " + this.getPos().toString();
+
         return rv;
     }
 }

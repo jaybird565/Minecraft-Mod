@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.ModContainer;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import typicals.alchemicalexpansion.AlchemicalExpansion;
+import typicals.alchemicalexpansion.util.LoggerUtil;
 
 import java.io.BufferedReader;
 import java.nio.file.Files;
@@ -20,16 +21,16 @@ public class ContentParser {
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     //parses alchemical expansion content
-    public static boolean parseContent(ModContainer mod) {
+    public static void parseContent(ModContainer mod) {
 
-        return CraftingHelper.findFiles(mod, modContentPath(mod), null, (root, file) -> {
+        CraftingHelper.findFiles(mod, modContentPath(mod), null, (root, file) -> {
 
             String fileName = file.getFileName().toString();
 
             if(mod.getModId().equals(AlchemicalExpansion.MODID)) {
                 //taken from https://github.com/CoFH/ThermalExpansion/blob/92b52710c19f3923f81ece2f580b044d8d8111fc/src/main/java/cofh/thermalexpansion/util/parsers/ContentParser.java#L104
 
-                if (!"json".equals(FilenameUtils.getExtension(fileName)) || fileName.startsWith("_")) {
+                if (!FilenameUtils.getExtension(fileName).equals("json") || fileName.startsWith("_")) {
                     return true;
                 }
                 BufferedReader reader = null;
@@ -39,14 +40,14 @@ public class ContentParser {
                     //assume json array or object
                     for (Map.Entry<String, JsonElement> contentEntry : json.entrySet()) {
                         if(parseEntry(contentEntry)) {
-                            AlchemicalExpansion.logger.debug("Content entry added from file " + fileName + ": \"" + contentEntry.getKey() + "\"");
+                            LoggerUtil.verbose("Content entry added from file " + fileName + ": \"" + contentEntry.getKey() + "\"");
                         } else {
-                            AlchemicalExpansion.logger.error("Error parsing entry from file " + fileName + ": \"" + contentEntry.getKey() + "\" > Please make sure the entry is valid JSON.");
+                            LoggerUtil.error("Error parsing entry from file " + fileName + ": \"" + contentEntry.getKey() + "\" > Please make sure the entry is valid JSON.");
                         }
 
                     }
                 } catch (Exception e) {
-                    AlchemicalExpansion.logger.error("Error parsing content file " + fileName + "!", e);
+                    LoggerUtil.error("Error parsing content file " + fileName + "!", e);
                 } finally {
                     IOUtils.closeQuietly(reader);
                 }
@@ -62,8 +63,6 @@ public class ContentParser {
     }
 
 
-
-
     public static String assetsPath(ModContainer mod) {
         return "assets/" + mod.getModId() + "/";
     }
@@ -72,11 +71,11 @@ public class ContentParser {
         return assetsPath(mod) + "content/";
     }
 
-
     public static boolean parseEntry(Map.Entry<String, JsonElement> entry) {
         switch(entry.getKey()) {
             case "pillfurnace": return PillFurnaceParser.parseJson(entry.getValue());
             default: return false;
         }
     }
+
 }

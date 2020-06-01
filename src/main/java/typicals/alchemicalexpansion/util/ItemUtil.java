@@ -4,6 +4,7 @@ package typicals.alchemicalexpansion.util;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,6 +145,10 @@ public class ItemUtil {
 
         return itemsOut;
 
+    }
+
+    public static String stackArrayToString(ItemStack[] stacks) {
+        return stackListToString(Arrays.asList(stacks));
     }
 
     public static String stackListToString(List<ItemStack> stacks) {
