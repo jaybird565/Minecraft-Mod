@@ -1,6 +1,7 @@
 package typicals.alchemicalexpansion.util;
 
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -74,6 +75,40 @@ public class ItemUtil {
 
     }
 
+    /** Same as {@link #containsItemStack(List, ItemStack)} but removes matching item in items */
+    public static boolean removeItemStack(List<ItemStack> items, ItemStack itemIn ) {
+
+        for(ItemStack  item: items) {
+            if(item.isItemEqual(itemIn) ) {
+                if(item.getCount() >= itemIn.getCount()) {
+                    items.remove(item);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+
+    }
+
+    /**  Same as {@link #containsItemStack(List, ItemStack)} but decreases matching item in items by
+     * count of itemIn */
+    public static boolean decreaseItemStack(List<ItemStack> items, ItemStack itemIn) {
+        for(ItemStack  item: items) {
+            if(item.isItemEqual(itemIn) ) {
+                if(item.getCount() >= itemIn.getCount()) {
+                    item.shrink(itemIn.getCount());
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+
 
     public static boolean containsItem(List<ItemStack> items, ItemStack itemIn) {
         for(ItemStack item : items) {
@@ -121,6 +156,15 @@ public class ItemUtil {
         }
 
         return rv;
+    }
+
+    public static boolean isEmpty(List<ItemStack> stacks) {
+        for(ItemStack stack : stacks) {
+            if(!stack.isEmpty() && !stack.getItem().equals(Items.AIR)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

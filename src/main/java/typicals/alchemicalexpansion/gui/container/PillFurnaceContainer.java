@@ -14,7 +14,7 @@ public class PillFurnaceContainer extends BaseContainer {
 
     public static final int FUEL_SLOT =  9;
 
-    public static final int[] REAGENT_SLOTS = Array.range(0, 9);
+    public static final int[] REAGENT_SLOTS = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 
     public static final int RESULT_SLOT = 10;
 

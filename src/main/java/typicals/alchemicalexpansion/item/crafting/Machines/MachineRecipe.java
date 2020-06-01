@@ -23,14 +23,12 @@ public class MachineRecipe {
             return false;
         }
 
-        for(ItemStack inputIn : inputsIn) {
-            if(!this.containsInput(inputIn)) {
+        for(ItemStack input : this.inputs) {
+            if(!ItemUtil.removeItemStack(inputsIn, input)) {
                 return false;
             }
         }
-
         return true;
-
     }
 
     public boolean isValid(){

@@ -20,6 +20,7 @@ import typicals.alchemicalexpansion.recipes.Recipes;
 import typicals.alchemicalexpansion.util.ItemUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -103,24 +104,23 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
 
         if(!this.onClient()) {
 
-            if(currentRecipe == null && !this.getReagents().isEmpty()) {
+            boolean canCook = false;
+
+            if(currentRecipe == null) {
                 this.currentRecipe = (PillFurnaceRecipe) Recipes.getRecipeFromInputs(this.getReagents());
             }
 
-            boolean canCook = false;
-
-            if(this.currentRecipe != null && this.currentRecipe.isValid()) {
-                //possibly a slow calculation
-
-                AlchemicalExpansion.logger.debug("Recipe detected, validating recipe: " + this.currentRecipe.toString() + " with contents: " + this.contentString());
-                if((currentRecipe.canCraft(this.getReagents())) &&
-                        (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty()) &&
-                    (this.getResultStack().getCount() + this.currentRecipe.getOutput().getCount() <= this.getResultStack().getMaxStackSize())) {
+            //determine if we can cook the reagents
+            if((this.currentRecipe != null) &&
+                    (!ItemUtil.isEmpty(this.getReagents())) &&
+                    (this.currentRecipe.isValid()) &&
+                    (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty()) &&
+                    (this.getResultStack().getCount() + this.currentRecipe.getOutput().getCount() <= this.getResultStack().getMaxStackSize()) &&
+                    (this.currentRecipe.canCraft(this.getReagents()))) {
                     canCook = true;
-                } else {
-                    this.currentRecipe = null;
-                }
 
+            } else {
+                this.currentRecipe = null;
             }
 
             //add more fuel if has fuel and out of burnTime
@@ -139,6 +139,17 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
                         this.getResultStack().grow(this.currentRecipe.getOutput().getCount());
                     }
 
+                    //remove items from reagent/input slots
+                    List<ItemStack> reagentStacks = Arrays.asList(this.getStacksInSlots(PillFurnaceContainer.REAGENT_SLOTS));
+                    for(ItemStack input : this.currentRecipe.getInputs() ) {
+                        if(!ItemUtil.decreaseItemStack(reagentStacks, input)) {
+                            AlchemicalExpansion.logger.error("the recipe in a pill furnace changed while crafting, this shouldn't happen...");
+                        }
+                    }
+
+
+
+                    this.cookTime = 0;
                     markDirty = true;
                 }
             } else {
