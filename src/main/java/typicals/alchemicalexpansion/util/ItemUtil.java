@@ -100,9 +100,13 @@ public class ItemUtil {
             int count = itemIn.getCount();
 
             for(ItemStack item: items) {
-                if(item.isItemEqual(itemIn)) {
+                if(count == 0) {
+                    break;
+                } else if(item.isItemEqual(itemIn)) {
+
                     if(item.getCount() >= count) {
                         item.shrink(count);
+                        count = 0;
                     } else {
                         count -= item.getCount();
                         item.setCount(0);
