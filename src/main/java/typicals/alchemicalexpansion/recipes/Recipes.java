@@ -19,25 +19,13 @@ public class Recipes {
         Like 9 wheat should be valid even if all 9 are in top left slot of pill furnace.
         */
         LoggerUtil.dev("Recipe from inputs requested, finding recipe with inputs:\n" + ItemUtil.stackListToString(inputs));
-        int numberOfInputs = inputs.size();
         //Index pillFurnaceRecipes and compare all of its inputs to the supplied
-        for (int i = 0; i < pillFurnaceRecipes.size(); i++) {
-            List<ItemStack> pillFurnaceInputList = pillFurnaceRecipes.get(i).getInputs();
-            if (pillFurnaceInputList.size() == inputs.size()) {
-                for (int j = 0; j < pillFurnaceInputList.size(); j++) {
-                    if (numberOfInputs == 0) {
-                        return pillFurnaceRecipes.get(i);
-                    } else {
-                        for (int k = 0; k < inputs.size(); k++) {
-                            if (inputs.get(k).isItemEqual(pillFurnaceInputList.get(j))) {
-                                --numberOfInputs;
-                                break;
-                            }
-                        }
-                    }
-                }
+        for (PillFurnaceRecipe possibleRecipe : pillFurnaceRecipes) {
+
+            if(possibleRecipe.canCraft(inputs)) {
+                return possibleRecipe;
             }
-        }
+       }
         LoggerUtil.dev("Recipe not found with inputs:\n" + ItemUtil.stackListToString(inputs));
         return new PillFurnaceRecipe();
     }

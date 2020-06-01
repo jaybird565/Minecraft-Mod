@@ -28,25 +28,25 @@ public class LoggerUtil {
 
     public static void veryVerboseVerbose(String message) {
         if(verbose && veryVerbose) {
-            debug("[VVV]" + message);
+            debug("[VVV] " + message);
         }
     }
 
     public static void veryVerbose(String message) {
         if(veryVerbose) {
-            debug("[VV]" + message);
+            debug("[VV] " + message);
         }
     }
 
     public static void verbose(String message) {
         if(verbose) {
-            debug("[V]" + message);
+            debug("[V] " + message);
         }
     }
 
     public static void dev(String message) {
         if(dev) {
-            debug("[DEV]" + message);
+            debug("[DEV] " + message);
         }
     }
 

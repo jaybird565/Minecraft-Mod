@@ -62,17 +62,17 @@ public class ItemUtil {
      * @return whether itemIn's Item is in items and if itemIn's count is greater than or equal to the matching ItemStack in items
      */
     public static boolean containsItemStack(List<ItemStack> items, ItemStack itemIn) {
+        return countContainedInStackList(items, itemIn) >= itemIn.getCount();
+    }
 
+    public static int countContainedInStackList(List<ItemStack> items, ItemStack itemIn) {
+        int count = 0;
         for(ItemStack  item: items) {
             if(item.isItemEqual(itemIn) ) {
-                if(item.getCount() >= itemIn.getCount()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                count += item.getCount();
             }
         }
-        return false;
+        return count;
 
     }
 
@@ -94,26 +94,33 @@ public class ItemUtil {
     }
 
     /**  Same as {@link #containsItemStack(List, ItemStack)} but decreases matching item in items by
-     * count of itemIn */
+     * count of itemIn if and only if itemIn is contained in items*/
     public static boolean decreaseItemStack(List<ItemStack> items, ItemStack itemIn) {
-        for(ItemStack  item: items) {
-            if(item.isItemEqual(itemIn) ) {
-                if(item.getCount() >= itemIn.getCount()) {
-                    item.shrink(itemIn.getCount());
-                    return true;
-                } else {
-                    return false;
+        if(countContainedInStackList(items, itemIn) >= itemIn.getCount()) {
+            int count = itemIn.getCount();
+
+            for(ItemStack item: items) {
+                if(item.isItemEqual(itemIn)) {
+                    if(item.getCount() >= count) {
+                        item.shrink(count);
+                    } else {
+                        count -= item.getCount();
+                        item.setCount(0);
+                    }
                 }
             }
+
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
 
 
     public static boolean containsItem(List<ItemStack> items, ItemStack itemIn) {
         for(ItemStack item : items) {
-            if(item.getItem() == itemIn.getItem()) {
+            if(item.getItem().equals(itemIn.getItem())) {
                 return true;
             }
         }
@@ -130,7 +137,7 @@ public class ItemUtil {
 
         for(ItemStack item: items) {
             if(map.containsKey(item.getItem())) {
-                map.put(item.getItem(), item.getCount() + map.get(item));
+                map.put(item.getItem(), item.getCount() + map.get(item.getItem()));
             } else {
                 map.put(item.getItem(), item.getCount());
             }

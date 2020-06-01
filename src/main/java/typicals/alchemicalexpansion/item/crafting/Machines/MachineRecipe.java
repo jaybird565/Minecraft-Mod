@@ -26,13 +26,28 @@ public class MachineRecipe {
             return false;
         }
 
+        boolean valid = true;
+        //invalidate if inputsIn doesn't contain a input in this recipe
         for(ItemStack input : this.inputs) {
-            if(!ItemUtil.removeItemStack(inputsIn, input)) {
-                LoggerUtil.dev("Recipe does not work with inputs:\n" + ItemUtil.stackListToString(inputsIn) + " since input: " + input.toString() + " is not an input for this recipe.");
-                return false;
+            if(!ItemUtil.containsItemStack(inputsIn, input)) {
+                valid = false;
+                break;
             }
         }
-        return true;
+
+        if(!valid) {
+            return false;
+        }
+
+        //invalidate if inputsIn contains an item not in this recipe
+        for(ItemStack inputIn : inputsIn) {
+            if(!ItemUtil.containsItem(this.inputs, inputIn)) {
+                valid = false;
+                break;
+            }
+        }
+
+        return valid;
     }
 
     public boolean isValid(){

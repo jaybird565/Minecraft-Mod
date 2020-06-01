@@ -3,6 +3,7 @@ package typicals.alchemicalexpansion.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -115,7 +116,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
             if((this.currentRecipe != null) &&
                     (!ItemUtil.isEmpty(this.getReagents())) &&
                     (this.currentRecipe.isValid()) &&
-                    (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty()) &&
+                    (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty() || this.getResultStack().getItem().equals(Items.AIR)) &&
                     (this.getResultStack().getCount() + this.currentRecipe.getOutput().getCount() <= this.getResultStack().getMaxStackSize()) &&
                     (this.currentRecipe.canCraft(this.getReagents()))) {
                     canCook = true;
@@ -138,11 +139,10 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
                     ItemStack resultStack = this.getResultStack();
                     ItemStack outputStack = this.currentRecipe.getOutput();
 
-                    if(resultStack.isEmpty()) {
+                    if(resultStack.isEmpty() || resultStack.getItem().equals(Items.AIR)) {
                         this.setInventorySlotContents(PillFurnaceContainer.RESULT_SLOT, outputStack);
                     } else if(resultStack.isItemEqual(outputStack)){
                         int outputStackCount = outputStack.getCount();
-                        LoggerUtil.dev("Growing ItemStack: " + this.getResultStack().toString() + " by: " + outputStackCount);
                         this.getResultStack().grow(outputStackCount);
                     }
 

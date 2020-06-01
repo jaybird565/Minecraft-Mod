@@ -9,12 +9,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+import typicals.alchemicalexpansion.util.ItemUtil;
 import typicals.alchemicalexpansion.util.LoggerUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeParser {
 
     //takes in a tag and gets all the items in that tag
-    public static ItemStack[] getItems(String tag, JsonElement json){
+    public static List<ItemStack> getItems(String tag, JsonElement json){
         JsonObject type = json.getAsJsonObject();
         JsonArray tagContents = type.get(tag).getAsJsonArray();
 
@@ -22,18 +26,18 @@ public class RecipeParser {
 
     }
 
-    public static ItemStack[] parseItems(JsonArray itemsJson) {
-        ItemStack[] items = new ItemStack[itemsJson.size()];
+    public static List<ItemStack> parseItems(JsonArray itemsJson) {
+        List<ItemStack> items = new ArrayList<ItemStack>();
 
         for(int i = 0; i < itemsJson.size(); i++) {
             try {
-                items[i] = itemFromString(itemsJson.get(i).getAsString());
+                items.add(itemFromString(itemsJson.get(i).getAsString()));
             } catch (JsonParseException e){
                 LoggerUtil.error("Item could not be parsed", e);
             }
         }
+        return ItemUtil.compress(items);
 
-        return items;
     }
 
     public static ItemStack itemFromString (String item){

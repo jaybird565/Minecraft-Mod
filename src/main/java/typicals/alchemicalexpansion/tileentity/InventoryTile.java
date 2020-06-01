@@ -134,7 +134,8 @@ public abstract class InventoryTile extends ModTile implements IInventory{
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.itemStacks[index] = stack;
+        this.itemStacks[index] = new ItemStack(stack.getItem());
+        this.itemStacks[index].setCount(stack.getCount());
         if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
             stack.setCount(getInventoryStackLimit());
         }

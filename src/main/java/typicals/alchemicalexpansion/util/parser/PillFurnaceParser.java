@@ -8,6 +8,8 @@ import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
 import typicals.alchemicalexpansion.recipes.Recipes;
 import typicals.alchemicalexpansion.util.LoggerUtil;
 
+import java.util.List;
+
 
 public class PillFurnaceParser{
 
@@ -28,11 +30,12 @@ public class PillFurnaceParser{
             for (JsonElement jsonRecipe : json.getAsJsonArray()) {
                 PillFurnaceRecipe recipe = new PillFurnaceRecipe();
 
+
                 //Adds all items under the input tag to a array of inputs
-                ItemStack[] inputs = RecipeParser.getItems("input", jsonRecipe);
+                List<ItemStack> inputs = RecipeParser.getItems("input", jsonRecipe);
                 recipe.setInputs(inputs);
 
-                ItemStack[] outputs = RecipeParser.getItems("output", jsonRecipe);
+                List<ItemStack> outputs = RecipeParser.getItems("output", jsonRecipe);
                 recipe.setOutputs(outputs);
 
                 Recipes.pillFurnaceRecipes.add(recipe);
