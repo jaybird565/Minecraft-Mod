@@ -134,6 +134,8 @@ public abstract class InventoryTile extends ModTile implements IInventory{
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
+        //have to make a copy since we don't want to modify the passed stack.
+        //really need to make my getters not return references but copies...
         this.itemStacks[index] = new ItemStack(stack.getItem());
         this.itemStacks[index].setCount(stack.getCount());
         if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {

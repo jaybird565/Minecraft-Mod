@@ -43,11 +43,11 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
     }
 
 
-    protected ItemStack getFuelStack() {
+    public ItemStack getFuelStack() {
         return this.getStackInSlot(PillFurnaceContainer.FUEL_SLOT);
     }
 
-    protected ItemStack getResultStack() {
+    public ItemStack getResultStack() {
         return this.getStackInSlot(PillFurnaceContainer.RESULT_SLOT);
     }
 
@@ -65,7 +65,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
         }
     }
 
-    protected List<ItemStack> getReagents() {
+    public List<ItemStack> getReagents() {
         List<ItemStack> reagents = new ArrayList<ItemStack>();
         for(int i : PillFurnaceContainer.REAGENT_SLOTS) {
             ItemStack stack = this.getStackInSlot(i);
@@ -109,7 +109,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
             boolean canCook = false;
 
             if(currentRecipe == null) {
-                this.currentRecipe = (PillFurnaceRecipe) Recipes.getRecipeFromInputs(this.getReagents());
+                this.currentRecipe = (PillFurnaceRecipe) Recipes.getPillFurnaceRecipeFromInputs(this.getReagents());
             }
 
             //determine if we can cook the reagents
@@ -118,7 +118,7 @@ public class PillFurnaceTile extends InventoryTile implements ITickable, IIntera
                     (this.currentRecipe.isValid()) &&
                     (this.getResultStack().isItemEqual(this.currentRecipe.getOutput()) || this.getResultStack().isEmpty() || this.getResultStack().getItem().equals(Items.AIR)) &&
                     (this.getResultStack().getCount() + this.currentRecipe.getOutput().getCount() <= this.getResultStack().getMaxStackSize()) &&
-                    (this.currentRecipe.canCraft(this.getReagents()))) {
+                    (this.currentRecipe.canCraft(this))) {
                     canCook = true;
 
             } else {

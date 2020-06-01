@@ -4,8 +4,6 @@ package typicals.alchemicalexpansion.recipes;
 import net.minecraft.item.ItemStack;
 import typicals.alchemicalexpansion.item.crafting.Machines.MachineRecipe;
 import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
-import typicals.alchemicalexpansion.util.ItemUtil;
-import typicals.alchemicalexpansion.util.LoggerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,24 +12,23 @@ public class Recipes {
 
     public static List<PillFurnaceRecipe> pillFurnaceRecipes = new ArrayList<PillFurnaceRecipe>();
 
-    public static PillFurnaceRecipe getRecipeFromInputs(List<ItemStack> inputs) {
-        /*TODO make this check for count of items in slots not content of every slot
-        Like 9 wheat should be valid even if all 9 are in top left slot of pill furnace.
-        */
-        LoggerUtil.dev("Recipe from inputs requested, finding recipe with inputs:\n" + ItemUtil.stackListToString(inputs));
-        //Index pillFurnaceRecipes and compare all of its inputs to the supplied
+
+
+    public static PillFurnaceRecipe getPillFurnaceRecipeFromInputs(List<ItemStack> inputs) {
+
+        //making this more efficient would be a great improvement. for now though
+        //just split up recipe Lists as much as possible to prevent input size from
+        //increasing
         for (PillFurnaceRecipe possibleRecipe : pillFurnaceRecipes) {
 
             if(possibleRecipe.canCraft(inputs)) {
                 return possibleRecipe;
             }
        }
-        LoggerUtil.dev("Recipe not found with inputs:\n" + ItemUtil.stackListToString(inputs));
         return new PillFurnaceRecipe();
     }
 
-    public static PillFurnaceRecipe getRecipeFromOutputs(List<ItemStack> outputs) {
-        LoggerUtil.dev("Recipe from outputs requested, finding recipe with outputs:\n" + ItemUtil.stackListToString(outputs));
+    public static PillFurnaceRecipe getPillFurnaceRecipeFromOutputs(List<ItemStack> outputs) {
         int numberOfOutputs;
         //Index pillFurnaceRecipes and compare all of its inputs to the supplied
         for (int i = 0; i < pillFurnaceRecipes.size(); i++) {
@@ -52,7 +49,6 @@ public class Recipes {
                 }
             }
         }
-        LoggerUtil.dev("Recipe not found with outputs:\n" + ItemUtil.stackListToString(outputs));
         return new PillFurnaceRecipe();
     }
 
