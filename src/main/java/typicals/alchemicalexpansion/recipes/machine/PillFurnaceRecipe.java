@@ -1,8 +1,7 @@
-package typicals.alchemicalexpansion.item.crafting.Machines;
+package typicals.alchemicalexpansion.recipes.machine;
 
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import typicals.alchemicalexpansion.tileentity.PillFurnaceTile;
 
 

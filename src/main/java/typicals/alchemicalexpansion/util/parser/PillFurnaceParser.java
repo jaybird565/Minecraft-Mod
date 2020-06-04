@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import net.minecraft.item.ItemStack;
-import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
+import typicals.alchemicalexpansion.recipes.machine.PillFurnaceRecipe;
 import typicals.alchemicalexpansion.recipes.Recipes;
 import typicals.alchemicalexpansion.util.LoggerUtil;
 

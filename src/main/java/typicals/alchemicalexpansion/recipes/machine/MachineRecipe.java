@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.item.crafting.Machines;
+package typicals.alchemicalexpansion.recipes.machine;
 
 import net.minecraft.item.ItemStack;
 import typicals.alchemicalexpansion.util.ItemUtil;

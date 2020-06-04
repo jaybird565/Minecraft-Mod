@@ -2,8 +2,7 @@ package typicals.alchemicalexpansion.recipes;
 
 
 import net.minecraft.item.ItemStack;
-import typicals.alchemicalexpansion.item.crafting.Machines.MachineRecipe;
-import typicals.alchemicalexpansion.item.crafting.Machines.PillFurnaceRecipe;
+import typicals.alchemicalexpansion.recipes.machine.PillFurnaceRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,6 @@ import java.util.List;
 public class Recipes {
 
     public static List<PillFurnaceRecipe> pillFurnaceRecipes = new ArrayList<PillFurnaceRecipe>();
-
-
 
     public static PillFurnaceRecipe getPillFurnaceRecipeFromInputs(List<ItemStack> inputs) {
 
