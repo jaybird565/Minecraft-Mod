@@ -1,4 +1,4 @@
-package typicals.alchemicalexpansion.recipes.machine;
+package typicals.alchemicalexpansion.recipe.machine;
 
 
 import net.minecraft.item.ItemStack;

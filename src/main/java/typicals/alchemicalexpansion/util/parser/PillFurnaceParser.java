@@ -4,8 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import net.minecraft.item.ItemStack;
-import typicals.alchemicalexpansion.recipes.machine.PillFurnaceRecipe;
-import typicals.alchemicalexpansion.recipes.Recipes;
+import typicals.alchemicalexpansion.recipe.machine.PillFurnaceRecipe;
+import typicals.alchemicalexpansion.recipe.Recipes;
 import typicals.alchemicalexpansion.util.LoggerUtil;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class PillFurnaceParser{
         try {
             jsonRecipes = json.getAsJsonArray();
         } catch (JsonParseException e) {
-            LoggerUtil.error("PillFurnace recipes couldn't be parsed", e);
+            LoggerUtil.error("PillFurnace recipe couldn't be parsed", e);
             return false;
         }
 

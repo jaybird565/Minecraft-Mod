@@ -16,8 +16,8 @@ import typicals.alchemicalexpansion.AlchemicalExpansion;
 import typicals.alchemicalexpansion.block.ModBlocks;
 import typicals.alchemicalexpansion.block.PillFurnaceBlock;
 import typicals.alchemicalexpansion.gui.container.PillFurnaceContainer;
-import typicals.alchemicalexpansion.recipes.machine.PillFurnaceRecipe;
-import typicals.alchemicalexpansion.recipes.Recipes;
+import typicals.alchemicalexpansion.recipe.machine.PillFurnaceRecipe;
+import typicals.alchemicalexpansion.recipe.Recipes;
 import typicals.alchemicalexpansion.util.ItemUtil;
 import typicals.alchemicalexpansion.util.LoggerUtil;
 

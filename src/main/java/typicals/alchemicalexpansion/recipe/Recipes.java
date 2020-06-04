@@ -1,8 +1,8 @@
-package typicals.alchemicalexpansion.recipes;
+package typicals.alchemicalexpansion.recipe;
 
 
 import net.minecraft.item.ItemStack;
-import typicals.alchemicalexpansion.recipes.machine.PillFurnaceRecipe;
+import typicals.alchemicalexpansion.recipe.machine.PillFurnaceRecipe;
 
 import java.util.ArrayList;
 import java.util.List;

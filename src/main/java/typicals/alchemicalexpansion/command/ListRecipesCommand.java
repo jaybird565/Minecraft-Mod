@@ -6,7 +6,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import typicals.alchemicalexpansion.recipes.Recipes;
+import typicals.alchemicalexpansion.recipe.Recipes;
 
 
 public class ListRecipesCommand extends CommandBase {
